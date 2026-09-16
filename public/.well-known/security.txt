@@ -1,0 +1,12 @@
+# উদ্ভিদ গোয়েন্দা (Plant Detective) — Security Policy
+# https://cabi-diagnosis.vercel.app
+
+Contact: support@krishiai.live
+Contact: https://github.com/moniruzjaman/cabi-diagnosis/issues
+
+Preferred-Languages: en, bn
+
+Canonical: https://cabi-diagnosis.vercel.app/.well-known/security.txt
+
+This policy is valid for all subdomains of cabi-diagnosis.vercel.app.
+Please report security vulnerabilities responsibly.

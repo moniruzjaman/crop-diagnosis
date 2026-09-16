@@ -1,0 +1,11 @@
+# উদ্ভিদ গোয়েন্দা (Plant Detective) — robots.txt
+# Allow all crawlers to index the app, but block API and internal paths
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /sw.js
+Disallow: /manifest.json
+
+# Sitemap (if available)
+# Sitemap: https://cabi-diagnosis.vercel.app/sitemap.xml

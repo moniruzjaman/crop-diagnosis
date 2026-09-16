@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="bn">
+  <head>
+    <script>
+      // Polyfill/shim for environments (e.g. sandboxed iframes) where window.fetch has only a getter
+      (function () {
+        function ensureFetchSetter(target) {
+          try {
+            if (!target) return;
+            var currentFetch = target.fetch;
+            var desc = Object.getOwnPropertyDescriptor(target, 'fetch');
+            if (!desc || !desc.set || !desc.writable) {
+              Object.defineProperty(target, 'fetch', {
+                get: function () {
+                  return currentFetch;
+                },
+                set: function (newFetch) {
+                  currentFetch = newFetch;
+                },
+                configurable: true,
+                enumerable: true,
+              });
+            }
+          } catch (e) {}
+        }
+        ensureFetchSetter(window);
+        if (typeof Window !== 'undefined' && Window.prototype) {
+          ensureFetchSetter(Window.prototype);
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="উদ্ভিদ গোয়েন্দা (Plant Detective) — Learn to identify crop problems using the CABI 5-step diagnostic process. Interactive games, AI diagnosis, and Bengali TTS accessibility for Bangladesh farmers." />
+    <meta name="keywords" content="CABI, Plantwise, Bangladesh, crop diagnosis, pest, disease, agriculture, উদ্ভিদ গোয়েন্দা, DAE, BRRI, BARI" />
+
+    <!-- Prevent ALL browser caching for this shell HTML -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <meta name="theme-color" content="#006a4e" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="উদ্ভিদ গোয়েন্দা" />
+
+    <title>স্মার্ট ফসল রোগ নির্ণয় | CABI Smart Crop Diagnosis</title>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Apple Touch Icon (180×180 for iOS home screen) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Preconnect to Google Fonts for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      // Register service worker — force update on every page load
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', async () => {
+          const registration = await navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' });
+          // Check for SW updates every time the page loads
+          registration.update();
+          // Also check every 60 seconds while app is open
+          setInterval(() => registration.update(), 60000);
+        });
+      }
+    </script>
+  </body>
+</html>

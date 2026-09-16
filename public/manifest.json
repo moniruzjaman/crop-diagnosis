@@ -1,0 +1,73 @@
+{
+  "name": "উদ্ভিদ গোয়েন্দা — Plant Detective",
+  "short_name": "উদ্ভিদ গোয়েন্দা",
+  "description": "CABI Plantwise প্রোটোকল দিয়ে ফসলের রোগ নির্ণয় করুন — বাংলাদেশের কৃষকদের জন্য",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f4f6f8",
+  "theme_color": "#006a4e",
+  "orientation": "portrait-primary",
+  "lang": "bn",
+  "categories": ["agriculture", "education", "utilities"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "রোগ নির্ণয়",
+      "url": "/?tab=diagnose",
+      "description": "ফসলের ছবি দিয়ে রোগ চিনুন",
+      "icons": [{ "src": "/favicon-32x32.png", "sizes": "32x32" }]
+    },
+    {
+      "name": "গেম হাব",
+      "url": "/?tab=game",
+      "description": "CABI প্রোটোকল গেম খেলুন",
+      "icons": [{ "src": "/favicon-32x32.png", "sizes": "32x32" }]
+    },
+    {
+      "name": "CABI গাইড",
+      "url": "/?tab=guide",
+      "description": "CABI Plantwise গাইড পড়ুন",
+      "icons": [{ "src": "/favicon-32x32.png", "sizes": "32x32" }]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+dist/
+node_modules/
+.data/
+skills/
+download/
+*.min.js
+package-lock.json

@@ -1,0 +1,94 @@
+{
+  "name": "Crop Doctor",
+  "short_name": "CropDoc",
+  "description": "100% offline crop problem diagnosis — identify diseases, pests, and nutrient deficiencies from crop photos. Available in Bengali and English.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls", "minimal-ui"],
+  "background_color": "#0a3d1f",
+  "theme_color": "#006a4e",
+  "orientation": "portrait-primary",
+  "lang": "bn",
+  "dir": "ltr",
+  "categories": ["productivity", "utilities", "education"],
+  "icons": [
+    {
+      "src": "assets/icons/maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon.svg",
+      "sizes": "100x100",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/img/screenshot-home.png",
+      "sizes": "430x932",
+      "type": "image/png",
+      "platform": "android"
+    },
+    {
+      "src": "assets/img/screenshot-diagnosis.png",
+      "sizes": "430x932",
+      "type": "image/png",
+      "platform": "android"
+    },
+    {
+      "src": "assets/img/screenshot-result.png",
+      "sizes": "430x932",
+      "type": "image/png",
+      "platform": "android"
+    }
+  ],
+  "prefer_related_applications": false,
+  "protocol_handler": {
+    "protocol": "crop-doctor",
+    "url": "/?source=%s"
+  },
+  "shortcuts": [
+    {
+      "name": "New Diagnosis",
+      "short_name": "Diagnose",
+      "description": "Start a new crop diagnosis",
+      "url": "/?action=diagnose",
+      "icons": [{ "src": "assets/icons/icon.svg", "sizes": "100x100" }]
+    },
+    {
+      "name": "ফসল তালিকা",
+      "short_name": "ফসল",
+      "description": "View crop database",
+      "url": "/?action=crops",
+      "icons": [{ "src": "assets/icons/icon.svg", "sizes": "100x100" }]
+    }
+  ]
+}

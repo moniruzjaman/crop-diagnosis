@@ -1,0 +1,76 @@
+{
+  "name": "cabi-diagnosis",
+  "version": "4.0.0",
+  "description": "উদ্ভিদ গোয়েন্দা (Plant Detective) — AI-powered CABI diagnostic process trainer for Bangladesh farmers, with interactive games, TTS accessibility, and modern mobile-first UI",
+  "license": "MIT",
+  "keywords": [
+    "cabi",
+    "plantwise",
+    "bangladesh",
+    "agriculture",
+    "diagnosis",
+    "pest",
+    "disease",
+    "crop",
+    "bangla",
+    "react",
+    "pwa",
+    "tts",
+    "farmer-education"
+  ],
+  "author": "Monir Uz Zaman",
+  "homepage": "https://github.com/moniruzjaman/cabi-diagnosis#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moniruzjaman/cabi-diagnosis.git"
+  },
+  "bugs": {
+    "url": "https://github.com/moniruzjaman/cabi-diagnosis/issues"
+  },
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "vite build && node scripts/strip-crossorigin.js",
+    "start": "node server.js",
+    "preview": "vite preview",
+    "lint": "eslint src/ api/ --ext .js,.jsx --no-warn-ignored",
+    "lint:fix": "eslint src/ api/ --ext .js,.jsx --fix --no-warn-ignored",
+    "format": "prettier --write \"src/**/*.{js,jsx,css}\" \"api/**/*.js\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,css}\" \"api/**/*.js\"",
+    "check": "npm run lint && npm run format:check",
+    "db:init": "node scripts/init-turso.mjs"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.17.3",
+    "cheerio": "^1.2.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.8",
+    "localforage": "^1.10.0",
+    "lucide-react": "^1.43.0",
+    "motion": "^13.2.0",
+    "node-fetch": "^3.3.2",
+    "onnxruntime-web": "^1.29.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^10.4.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "prettier": "^3.8.3",
+    "tailwindcss": "^4.3.3",
+    "vite": "^5.4.2"
+  },
+  "allowScripts": {
+    "protobufjs@7.6.6": true,
+    "esbuild@0.21.5": true
+  }
+}

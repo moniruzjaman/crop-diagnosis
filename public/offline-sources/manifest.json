@@ -1,0 +1,14 @@
+{
+  "bundles": [
+    {
+      "name": "plantvillage-sample",
+      "version": "1.0.0",
+      "size": 12500,
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "path": "/offline-sources/plantvillage-sample",
+      "indexPath": "/offline-sources/plantvillage-sample/index.json",
+      "description": "Sample PlantVillage subset with thumbnails for testing offline integration"
+    }
+  ]
+}

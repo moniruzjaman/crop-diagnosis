@@ -1,0 +1,26 @@
+[
+  {
+    "id": "pv-001",
+    "page": 1,
+    "image": "pv_sample_1.webp",
+    "url": "https://via.placeholder.com/320x240.png?text=PlantVillage+1",
+    "category": "Leaf spot",
+    "textPreview": "Tomato leaf showing round brown spots indicative of a typical fungal leaf spot.",
+    "keywords": ["leaf","spot","brown","fungal","tomato"],
+    "tags": ["plantvillage","tomato"],
+    "license": "CC BY-SA 4.0",
+    "source": "PlantVillage Sample"
+  },
+  {
+    "id": "pv-002",
+    "page": 2,
+    "image": "pv_sample_2.webp",
+    "url": "https://via.placeholder.com/320x240.png?text=PlantVillage+2",
+    "category": "Yellowing of leaves",
+    "textPreview": "Leaf chlorosis and interveinal yellowing consistent with nutrient deficiency or viral infection.",
+    "keywords": ["yellowing","chlorosis","nutrient","viral"],
+    "tags": ["plantvillage","leaf"],
+    "license": "CC BY-SA 4.0",
+    "source": "PlantVillage Sample"
+  }
+]

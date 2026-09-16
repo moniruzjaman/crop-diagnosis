@@ -1,0 +1,9 @@
+{
+  "servers": {
+    "graphify": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "graphify"]
+    }
+  }
+}

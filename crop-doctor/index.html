@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="bn" dir="auto">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="Crop Doctor — ফসল ডাক্তার। 100% অফলাইন কাজ করা পিএওয়া অ্যাপ। ফসলের ছবি আপলোড করে রোগ, কীট, খাপৎর সংকেত চেনার সহজ পদ্ধতি। Bangladesh farmers' crop problem diagnosis tool." />
+  <meta name="keywords" content="crop doctor, ফসল ডাক্তার, ফসল রোগ, crop disease, pest identification, কীটনাশক, nutrient deficiency, খাপৎর সংকেত, agriculture, কৃষি, Bangladesh, DAE, BRRI, BARI, PWA, offline" />
+  <meta name="author" content="Crop Doctor Team" />
+  <meta name="format-detection" content="telephone=yes" />
+  <meta name="HandheldFriendly" content="true" />
+  <meta name="MobileOptimized" content="width" />
+
+  <!-- PWA -->
+  <meta name="theme-color" content="#006a4e" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Crop Doctor" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <!-- Prevent caching of shell -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <!-- SEO: Canonical -->
+  <link rel="canonical" href="https://crop-doctor.netlify.app/" />
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/assets/icons/icon.svg" />
+  <link rel="alternate icon" href="/assets/icons/icon.svg" />
+  <link rel="apple-touch-icon" href="/assets/icons/icon.svg" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://crop-doctor.netlify.app/" />
+  <meta property="og:title" content="Crop Doctor — ফসল ডাক্তার | অফলাইন কৃষি নির্ণয় অ্যাপ" />
+  <meta property="og:description" content="100% অফলাইনেও কাজ করা এই PWA-এ ফসলের ছবি আপলোড করুন। রোগ, কীট, খাপৎ সনাক্ত করুন। DAE-approved পরামর্শ। বাংলা ও ইংরেজিতে।" />
+  <meta property="og:image" content="https://crop-doctor.netlify.app/assets/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Crop Doctor app screenshot showing crop disease diagnosis" />
+  <meta property="og:site_name" content="Crop Doctor" />
+  <meta property="og:locale" content="bn_BD" />
+  <meta property="og:locale:alternate" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://crop-doctor.netlify.app/" />
+  <meta name="twitter:title" content="Crop Doctor — ফসল ডাক্তার | 100% Offline Crop Diagnosis PWA" />
+  <meta name="twitter:description" content="Upload a crop photo and get instant diagnosis for diseases, pests & nutrient deficiencies. Works 100% offline. Available in Bengali & English." />
+  <meta name="twitter:image" content="https://crop-doctor.netlify.app/assets/og-image.jpg" />
+  <meta name="twitter:image:alt" content="Crop Doctor app screenshot showing crop disease diagnosis" />
+  <meta name="twitter:site" content="@CropDoctorApp" />
+  <meta name="twitter:creator" content="@CropDoctorApp" />
+  <meta name="twitter:label1" content="Works Offline" />
+  <meta name="twitter:data1" content="Yes" />
+  <meta name="twitter:label2" content="Languages" />
+  <meta name="twitter:data2" content="Bengali, English" />
+
+  <!-- Preload fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" /></noscript>
+
+  <!-- App Styles -->
+  <link rel="stylesheet" href="/style.css" />
+
+  <title>Crop Doctor — ফসল ডাক্তার</title>
+</head>
+<body>
+  <!-- Loading screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Crop Doctor চালু হচ্ছে…</p>
+  </div>
+
+  <!-- App -->
+  <div id="app" class="app hidden">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-container">
+        <div class="logo">
+          <img src="/assets/icons/icon.svg" alt="Crop Doctor Logo" class="logo-img" />
+          <span class="logo-text">Crop Doctor</span>
+        </div>
+        <button id="lang-toggle" class="lang-toggle" aria-label="Toggle language">
+          <span class="lang-active">বাং</span> / <span class="lang-inactive">EN</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Home / Intro -->
+      <section id="home" class="section active">
+        <div class="hero">
+          <h1 class="hero-title" data-bn="hero-title">ফসল ডাক্তার</h1>
+          <p class="hero-subtitle" data-bn="hero-subtitle">ফসলের ছবি দিয়ে ১০০% অফলাইনেই রোগ কীট সনাক্ত করুন</p>
+          <button id="start-btn" class="btn btn-primary btn-lg">
+            <span data-bn="start-btn">শুরু করুন</span>
+          </button>
+        </div>
+
+        <div class="features">
+          <div class="feature-card">
+            <div class="feature-icon">📴</div>
+            <h3 data-bn="feat-offline">১০০% অফলাইন</h3>
+            <p data-bn="feat-offline-desc">কোনো ইন্টারনেট লাগে না</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3 data-bn="feat-pwa">PWA অ্যাপ</h3>
+            <p data-bn="feat-pwa-desc">হোমস্ক্রিনে ইনস্টল করুন</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🌾</div>
+            <h3 data-bn="feat-crops">১০+ ফসল</h3>
+            <p data-bn="feat-crops-desc">ধান, গম, মকা, পাট ইত্যাদি</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Crop Selection -->
+      <section id="crop-select" class="section">
+        <div class="section-header">
+          <h2 data-bn="select-crop">ফসল নির্বাচন করুন</h2>
+          <p class="section-subtitle" data-bn="select-crop-desc">আপনার ফসলটি নির্বাচন করুন</p>
+        </div>
+
+        <div class="crop-grid" id="crop-grid">
+          <!-- Crops populated by JS -->
+        </div>
+
+        <button id="back-home-1" class="btn btn-secondary">← পিছনে</button>
+      </section>
+
+      <!-- Symptom Selection -->
+      <section id="symptom-select" class="section">
+        <div class="section-header">
+          <h2 data-bn="select-symptom">লক্ষণ নির্বাচন করুন</h2>
+          <p class="section-subtitle" data-bn="select-symptom-desc">ফসলে যে সমস্যা দেখা দিচ্ছে তা নির্বাচন করুন</p>
+        </div>
+
+        <div class="photo-upload-area" id="photo-upload">
+          <div class="photo-upload-content">
+            <div class="photo-icon">📷</div>
+            <p data-bn="photo-desc">ফসলের ছবি আপলোড বা ক্যামেরা থেকে শুট করুন</p>
+            <input type="file" id="photo-input" accept="image/*" capture="environment" class="hidden" />
+            <button id="photo-btn" class="btn btn-outline">
+              <span data-bn="photo-btn">ছবি নিন</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="symptom-checklist" id="symptom-checklist">
+          <!-- Symptoms populated by JS -->
+        </div>
+
+        <button id="diagnose-btn" class="btn btn-primary btn-lg" disabled>
+          <span data-bn="diagnose-btn">নির্ণয় করুন</span>
+        </button>
+
+        <button id="back-crop" class="btn btn-secondary">← পিছনে</button>
+      </section>
+
+      <!-- Diagnosis Result -->
+      <section id="result" class="section">
+        <div class="result-container" id="result-content">
+          <!-- Result populated by JS -->
+        </div>
+
+        <button id="new-diagnosis" class="btn btn-secondary">
+          <span data-bn="new-diagnosis">নতুন নির্ণয়</span>
+        </button>
+      </section>
+    </main>
+
+    <!-- Install prompt -->
+    <div id="install-prompt" class="install-prompt hidden">
+      <div class="install-content">
+        <p data-bn="install-msg">অ্যাপটি ইনস্টল করুন আরও ভালো অভিজ্ঞতা পেতে</p>
+        <button id="install-btn" class="btn btn-primary">
+          <span data-bn="install-btn">ইনস্টল করুন</span>
+        </button>
+        <button id="dismiss-install" class="btn btn-text">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer hidden" id="footer">
+    <p class="footer-text">
+      <span data-bn="footer">Crop Doctor — আপনার ফসলের ডাক্তার। 100% অফলাইন।</span>
+    </p>
+    <div class="footer-links">
+      <a href="/privacy.html" data-bn="privacy">গোপনীয়তা নীতিমালা</a>
+      <a href="/about.html" data-bn="about">আমাদের সম্পর্কে</a>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function(reg) {
+            reg.update();
+            setInterval(function() { reg.update(); }, 60000);
+          })
+          .catch(function(err) { console.error('SW registration failed:', err); });
+      });
+    }
+  </script>
+</body>
+</html>

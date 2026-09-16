@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>গোপনীয়তা নীতি — Privacy Policy | উদ্ভিদ গোয়েন্দা (Plant Detective)</title>
+  <meta name="description" content="Privacy Policy for উদ্ভিদ গোয়েন্দা (Plant Detective) mobile app by Department of Agricultural Extension, Kurigram, Bangladesh">
+  <style>
+    :root {
+      --primary-green: #006a4e;
+      --dark-green: #00503a;
+      --medium-green: #2D7A3A;
+      --sage-green: #7BA68C;
+      --light-sage: #D4E6D9;
+      --very-light-green: #EAF4EC;
+      --warm-brown: #8B7355;
+      --dark-text: #1A2E1A;
+      --body-text: #2C3E2D;
+      --subtitle-gray: #5A6B5A;
+      --divider-line: #A8C5AD;
+      --white: #FFFFFF;
+      --cream: #FAF8F5;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Calibri', 'Segoe UI', 'Noto Sans Bengali', 'Arial', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--body-text);
+      background-color: var(--cream);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header Bar */
+    .header-bar {
+      background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+      color: var(--white);
+      padding: 24px 16px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0, 96, 40, 0.3);
+    }
+
+    .header-bar .emoji {
+      font-size: 2rem;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .header-bar h1 {
+      font-family: 'Times New Roman', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .header-bar .subtitle {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      font-style: italic;
+    }
+
+    .header-bar .package {
+      font-size: 0.75rem;
+      opacity: 0.7;
+      margin-top: 8px;
+      font-family: monospace;
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 16px 60px;
+    }
+
+    /* Developer Info Card */
+    .dev-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      border: 1px solid var(--light-sage);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+
+    .dev-card .label {
+      font-size: 0.8rem;
+      color: var(--subtitle-gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .dev-card .name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark-text);
+      margin-bottom: 8px;
+    }
+
+    .dev-card .role {
+      font-size: 0.9rem;
+      color: var(--subtitle-gray);
+      margin-bottom: 4px;
+    }
+
+    .dev-card .effective-date {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--light-sage);
+      font-size: 0.85rem;
+      color: var(--warm-brown);
+      font-weight: 600;
+    }
+
+    /* Sections */
+    .section {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+      border: 1px solid var(--light-sage);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--very-light-green);
+    }
+
+    .section-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary-green);
+      color: var(--white);
+      font-family: 'Times New Roman', serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-family: 'Times New Roman', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-green);
+    }
+
+    .section-title .en {
+      font-size: 0.85rem;
+      color: var(--subtitle-gray);
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    .section p {
+      margin-bottom: 12px;
+    }
+
+    /* Lists */
+    .section ul {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 12px;
+    }
+
+    .section ul li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .section ul li::before {
+      content: "•";
+      position: absolute;
+      left: 4px;
+      top: 0;
+      color: var(--medium-green);
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .section ul.sub-list {
+      margin-top: 8px;
+      margin-bottom: 0;
+    }
+
+    .section ul.sub-list li {
+      padding-left: 20px;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: var(--subtitle-gray);
+    }
+
+    .section ul.sub-list li::before {
+      content: "–";
+      font-size: 1rem;
+    }
+
+    .section strong {
+      color: var(--dark-text);
+    }
+
+    /* Service Tags */
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .service-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--very-light-green);
+      color: var(--dark-green);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid var(--light-sage);
+    }
+
+    /* Privacy Links */
+    .privacy-links {
+      background: var(--very-light-green);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 12px 0;
+    }
+
+    .privacy-links h4 {
+      font-size: 0.8rem;
+      color: var(--subtitle-gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .privacy-links a {
+      display: block;
+      color: var(--primary-green);
+      text-decoration: none;
+      font-size: 0.88rem;
+      padding: 4px 0;
+      transition: color 0.2s;
+    }
+
+    .privacy-links a:hover {
+      color: var(--dark-green);
+      text-decoration: underline;
+    }
+
+    /* Highlight Box */
+    .highlight-box {
+      background: linear-gradient(135deg, var(--very-light-green) 0%, var(--light-sage) 100%);
+      border-left: 4px solid var(--primary-green);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 12px 0;
+    }
+
+    .highlight-box p {
+      margin-bottom: 0;
+    }
+
+    /* Contact Card */
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+      padding: 12px;
+      background: var(--very-light-green);
+      border-radius: 8px;
+    }
+
+    .contact-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .contact-label {
+      font-size: 0.75rem;
+      color: var(--subtitle-gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 2px;
+    }
+
+    .contact-value {
+      font-weight: 600;
+      color: var(--dark-text);
+      font-size: 0.95rem;
+    }
+
+    .contact-value a {
+      color: var(--primary-green);
+      text-decoration: none;
+    }
+
+    .contact-value a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 32px 16px;
+      border-top: 1px solid var(--light-sage);
+      margin-top: 40px;
+    }
+
+    .footer .brand {
+      font-family: 'Times New Roman', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary-green);
+      margin-bottom: 8px;
+    }
+
+    .footer .thank-you {
+      font-style: italic;
+      color: var(--subtitle-gray);
+      font-size: 0.9rem;
+    }
+
+    .footer .copyright {
+      margin-top: 16px;
+      font-size: 0.75rem;
+      color: var(--sage-green);
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .header-bar h1 {
+        font-size: 1.25rem;
+      }
+
+      .section {
+        padding: 18px 16px;
+      }
+
+      .section-header {
+        flex-wrap: wrap;
+      }
+
+      .section-title {
+        font-size: 1.05rem;
+      }
+
+      .container {
+        padding: 16px 12px 48px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Bar -->
+  <header class="header-bar">
+    <span class="emoji">🌿</span>
+    <h1>গোপনীয়তা নীতি — Privacy Policy</h1>
+    <div class="subtitle">উদ্ভিদ গোয়েন্দা (Plant Detective)</div>
+    <div class="package">gov.dae.cabi.plantdetective</div>
+  </header>
+
+  <main class="container">
+
+    <!-- Developer Info -->
+    <div class="dev-card">
+      <div class="label">উন্নয়ন করেছেন</div>
+      <div class="name">আবু মো. মনিরুজ্জামান</div>
+      <div class="role">Additional Deputy Director (Horticulture)</div>
+      <div class="role">Department of Agricultural Extension (DAE), Kurigram, Bangladesh</div>
+      <div class="effective-date">📅 কার্যকর তারিখ: ১ জানুয়ারি ২০২৫ (1 January 2025)</div>
+    </div>
+
+    <!-- Section 1 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-number">১</span>
+        <div class="section-title">তথ্য সংগ্রহ <span class="en">(Data Collection)</span></div>
+      </div>
+      <p>উদ্ভিদ গোয়েন্দা অ্যাপটি আপনার গোপনীয়তা রক্ষা করতে প্রতিশ্রুতি। আমরা নিম্নলিখিত তথ্য সংগ্রহ করি:</p>
+      <ul>
+        <li><strong>ফসলের ছবি:</strong> ফসল রোগ নির্ণয়ের জন্য আপনার ডিভাইসের ক্যামেরা বা গ্যালারী থেকে ফসলের ছবি নেওয়া হয়। এই ছবিগুলি শুধুমাত্র আপনার ডিভাইসের লোকাল স্টোরেজে সংরক্ষিত থাকে।</li>
+        <li><strong>ডিভাইসের অবস্থান:</strong> GPS অথবা IP ঠিকানা থেকে আপনার ডিভাইসের অবস্থান নিরূপণ করা হয়। এটি আপনার অঞ্চলের আবহাওয়া পরামর্শ প্রদান করতে ব্যবহৃত হয়।</li>
+        <li><strong>রোগ নির্ণয়ের ইতিহাস:</strong> আপনার পূর্বের রোগ নির্ণয়ের ইতিহাস ডিভাইসের লোকাল স্টোরেজে সংরক্ষিত থাকে।</li>
+        <li><strong>বেপাতর ব্যবহার বিশ্লেষণ:</strong> অ্যাপের কোন ব্যক্তিগত তথ্য ছাড়াই অজ্ঞাত ব্যবহার বিশ্লেষণ (যেমন: কোন সেকশন পরিদর্শন করা হয়েছে) সংগ্রহ করা হয়। এই তথ্য সম্পূর্ণ অজ্ঞাত্যামূলক।</li>
+      </ul>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-number">২</span>
+        <div class="section-title">তথ্য ব্যবহার <span class="en">(Data Usage)</span></div>
+      </div>
+      <p>আমরা সংগৃহীত তথ্য নিম্নলিখিত উদ্দেশ্যে ব্যবহার করি:</p>
+      <ul>
+        <li><strong>AI রোগ নির্ণয়:</strong> ফসলের ছবি Google Gemini, Groq এবং OpenRouter এই সেবাগুলিতে প্রেরণ করা হয়। ছবিগুলি আমরা কোন সার্ভারে সংরক্ষণ করি না। প্রেরণের পর ছবিগুলি স্বয়ংক্রিয়ভাবে মুছে ফেলে যায়।</li>
+        <li><strong>আবহাওয়া পরামর্শ:</strong> আপনার ডিভাইসের অবস্থানের তথ্য ব্যবহার করে ওই অঞ্চলের জন্য সম্পূর্ণ পরামর্শ প্রদান করা হয়।</li>
+        <li><strong>বিশ্লেষণ:</strong> সম্পূর্ণ অজ্ঞাত্যামূলক ভাবে সম্পূর্ণ হয়। কোন ব্যক্তিগত তথ্য এতে অন্তর্ভুক্ত নয়।</li>
+      </ul>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-number">৩</span>
+        <div class="section-title">তথ্য সংরক্ষণ <span class="en">(Data Storage)</span></div>
+      </div>
+      <p>আমরা আপনার গোপনীয়তার গুরুত্বপূর্ণ নিরাপত্তার জন্য নিম্নলিখিত পদক্ষেপ অবলম্বন করছি:</p>
+      <ul>
+        <li>সমস্ত ব্যক্তিগত তথ্য শুধুমাত্র আপনার ডিভাইসে লোকালী সংরক্ষিত থাকে।</li>
+        <li>আমরা কোন সার্ভার-সাইড স্টোরেজে কোন ব্যক্তিগত তথ্য সংরক্ষণ করি না।</li>
+        <li>রোগ নির্ণয়ের ইতিহাস ডিভাইসের localStorage এ সংরক্ষিত থাকে।</li>
+        <li>অ্যাপ আপডেট করলে বা আপনার ডিভাইস ফ্যাক্টরী রিসেট করলে সব ডেটা মুছে যাবে।</li>
+      </ul>
+    </section>
+
+    <!-- Section 4 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-number">৪</span>
+        <div class="section-title">তৃতীয় পক্ষের সেবা <span class="en">(Third-Party Services)</span></div>
+      </div>
+      <p>এই অ্যাপটি নিম্নলিখিত তৃতীয় পক্ষের সেবা ব্যবহার করে। এই সেবাগুলির নিজস্ব গোপনীয়তা নীতি রয়েছে।</p>
+
+      <div class="service-tags">
+        <span class="service-tag">🤖 Google Gemini AI</span>
+        <span class="service-tag">⚡ Groq AI</span>
+        <span class="service-tag">🌐 OpenRouter</span>
+        <span class="service-tag">🌤️ Open-Meteo</span>
+        <span class="service-tag">▲ Vercel</span>
+        <span class="service-tag">📊 Google Analytics</span>
+      </div>
+
+      <div class="privacy-links">
+        <h4>গোপনীয়তা নীতি লিংক</h4>
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Gemini / Google Analytics →</a>
+        <a href="https://groq.com/privacy" target="_blank" rel="noopener noreferrer">Groq AI →</a>
+        <a href="https://openrouter.ai/privacy" target="_blank" rel="noopener noreferrer">OpenRouter →</a>
+        <a href="https://open-meteo.com/en/terms" target="_blank" rel="noopener noreferrer">Open-Meteo →</a>
+        <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Vercel →</a>
+      </div>
+    </section>
+
+    <!-- Section 5 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-number">৫</span>
+        <div class="section-title">ক্যামেরা ও স্টোরেজ <span class="en">(Camera & Storage)</span></div>
+      </div>
+      <p>উদ্ভিদ গোয়েন্দা অ্যাপের মূল কার্যকরমতার জন্য নিম্নলিখিত অনুমতিগুলি প্রয়োজন:</p>
+      <ul>
+        <li><strong>ক্যামেরা অনুমতি:</strong> ফসলের ছবি তুলতে হাতে ধরে ছবি তৈরি করতে ক্যামেরা অ্যাক্সেস প্রয়োজন। এই অনুমতি ছাড়া হলে রোগ নির্ণয় ফাংশন কাজ করবে না।</li>
+        <li><strong>স্টোরেজ অনুমতি:</strong> ফসলের ছবি গ্যালারী থেকে নির্বাচন করতে ডিভাইসের স্টোরেজ অ্যাক্সেস প্রয়োজন।</li>
+      </ul>
+      <div class="highlight-box">
+        <p><strong>গুরুত্বপূর্ণ নিশ্চিতকরণ:</strong> ফসলের ছবিগুলি শুধুমাত্র রোগ নির্ণয়ের জন্যই ব্যবহৃত হয়। ছবিগুলি AI প্রোভাইডারগুলিকে প্রক্রিয়া করার জন্য ছাড়া প্রেরণ করা হয় এবং কোন অন্য তৃতীয় পক্ষের সাথে শেয়ার করা হয় না। প্রক্রিয়া শেষে ছবিগুলি স্বয়ংক্রিয়ভাবে মুছে ফেলে যায়।</p>
+      </div>
+    </section>
+
+    <!-- Section 6 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-number">৬</span>
+        <div class="section-title">শিশু সুরক্ষা <span class="en">(Child Safety)</span></div>
+      </div>
+      <p>উদ্ভিদ গোয়েন্দা অ্যাপটি সকল বয়সের জন্য নিরাপত্ত।</p>
+      <ul>
+        <li>অ্যাপের কোন কনটেন্ট শিশুদের জন্য অপযুক্তিকর নয়।</li>
+        <li>১৩ বছরের নিচে শিশুদের কাছ থেকে কোন ডেটা সংগ্রহ করা হয় না।</li>
+        <li>অ্যাপটি পরিবারের জন্য সম্পূর্ণ নিরাপদ ও শিক্ষামূলক।</li>
+      </ul>
+    </section>
+
+    <!-- Section 7 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-number">৭</span>
+        <div class="section-title">ডেটা মুছে ফেলা <span class="en">(Data Deletion)</span></div>
+      </div>
+      <p>আপনি যেকোনো সময় আপনার সমস্ত ডেটা মুছে ফেলতে পারেন:</p>
+      <ul>
+        <li><strong>ডিভাইস সেটিংস থেকে:</strong> আপনার ফোনের সেটিংস > অ্যাপস > উদ্ভিদ গোয়েন্দা > স্টোরেজ মুছুন / ক্যাশে মুছুন অপশনটি ব্যবহার করুন।</li>
+        <li><strong>অ্যাপের মাধ্যমে:</strong> অ্যাপের ভেতরে থেকে ইতিহাস মুছে ফেলার বাটন ব্যবহার করুন। এটি সমস্ত স্থানীয় ডেটা মুছে ফেলবে।</li>
+      </ul>
+      <div class="highlight-box">
+        <p>ডেটা মুছে ফেললে সমস্ত রোগ নির্ণয়ের ইতিহাস এবং সংরক্ষিত ছবি সম্পূর্ণভাবে মুছে যাবে এবং পুনরুদ্ধার করা সম্ভব হবে না।</p>
+      </div>
+    </section>
+
+    <!-- Section 8 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-number">৮</span>
+        <div class="section-title">নীতি পরিবর্তন <span class="en">(Policy Changes)</span></div>
+      </div>
+      <p>আমরা যেকোনো সময় এই গোপনীয়তা নীতি আপডেট করতে পারি। নীতির যেকোনো পরিবর্তন অ্যাপের পরবর্তী সংস্করণের সাথে প্রতিফলিত হবে।</p>
+      <ul>
+        <li>গুরুত্বপূর্ণ নীতি পরিবর্তনের ক্ষেত্রে আমরা সবসময় ব্যবহারকারীগণকে জানাবো।</li>
+        <li>উল্লেখ্য পরিবর্তনগুলি অ্যাপের নতুন সংস্করণের রিলিজ নোটের মাধ্যমে প্রকাশ করা হবে।</li>
+        <li>বড় পরিবর্তনের ক্ষেত্রে অ্যাপের ভেতরে একটি নোটিফিকেশন দেওয়া হবে।</li>
+      </ul>
+    </section>
+
+    <!-- Section 9 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-number">৯</span>
+        <div class="section-title">যোগাযোগ <span class="en">(Contact)</span></div>
+      </div>
+      <p>এই গোপনীয়তা নীতি সম্পর্কে যেকোনো প্রশ্ন বা উদ্বেগের জন্য আমাদের সাথে যোগাযোগ করুন:</p>
+
+      <div class="contact-item">
+        <span class="contact-icon">📧</span>
+        <div>
+          <div class="contact-label">ইমেইল</div>
+          <div class="contact-value"><a href="mailto:support@krishiai.live">support@krishiai.live</a></div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <span class="contact-icon">📱</span>
+        <div>
+          <div class="contact-label">ফোন</div>
+          <div class="contact-value"><a href="tel:+8801712663740">+8801712663740</a></div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <span class="contact-icon">📍</span>
+        <div>
+          <div class="contact-label">ঠিকানা</div>
+          <div class="contact-value">Department of Agricultural Extension (DAE), Kurigram, Bangladesh</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 10 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-number">১০</span>
+        <div class="section-title">কার্যকর তারিখ <span class="en">(Effective Date)</span></div>
+      </div>
+      <p>এই গোপনীয়তা নীতিটি ১ জানুয়ারি ২০২৫ (1 January 2025) তারিখ থেকে কার্যকর।</p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="brand">🌿 উদ্ভিদ গোয়েন্দা (Plant Detective) 🌿</div>
+      <p class="thank-you">আমরা আপনার গোপনীয়তাকে সম্মান করি এবং উদ্ভিদ গোয়েন্দা ব্যবহার করার জন্য আপনাকে ধন্যবাদ জানাই।</p>
+      <p class="copyright">© 2025 আবু মো. মনিরুজ্জামান | Department of Agricultural Extension, Kurigram</p>
+    </footer>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+/* ==========================================================================
+   Accessibility Styles for CABI Plant Detective
+   ========================================================================== */
+
+/* Skip to content link — visible only on keyboard focus */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background: #0d9e4c;
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 9999;
+  font-size: 14px;
+  border-radius: 0 0 8px 0;
+  text-decoration: none;
+  font-weight: 600;
+}
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* Reduced motion — respect user preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus indicators — visible focus rings for keyboard navigation */
+*:focus-visible {
+  outline: 2px solid #0d9e4c;
+  outline-offset: 2px;
+}
+
+/* High contrast mode — increase border and text contrast */
+@media (prefers-contrast: high) {
+  :root {
+    --c-border: #000;
+    --c-text-muted: #000;
+  }
+}
+
+button,
+[role="button"],
+input[type="checkbox"],
+input[type="radio"],
+select,
+a {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+}
+
+/* Micro-interaction polish for mobile touch feedback */
+button:active:not(:disabled),
+[role="button"]:active:not(:disabled) {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
+}
+
+/* Ensure sufficient color contrast for form labels */
+label {
+  color: var(--c-text, #1a1d21);
+}
+
+/* Ensure error messages are not conveyed by color alone */
+[aria-invalid="true"],
+input:invalid {
+  border-color: var(--c-danger, #dc2626) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Ccircle cx='6' cy='6' r='5' fill='%23dc2626'/%3E%3Ctext x='6' y='9' text-anchor='middle' fill='white' font-size='8' font-weight='bold'%3E!%3C/text%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 28px;
+}
+
+/* Screen reader only utility class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Ensure links are distinguishable from surrounding text */
+a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+a:hover,
+a:focus-visible {
+  text-decoration-thickness: 2px;
+}
+
+/* Ensure disabled elements are clearly distinguishable */
+button:disabled,
+input:disabled,
+select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Prevent text overflow in narrow viewports */
+body {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Ensure scrolling works in all directions */
+[role="region"],
+[aria-label] {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
