@@ -3,7 +3,7 @@
 // Cache is used as fallback when offline only
 // API responses are NEVER cached to prevent stale diagnostic results
 
-const CACHE_VERSION = 'cabi-v6-' + new Date().toISOString().slice(0, 10);
+const CACHE_VERSION = 'cabi-v7-' + new Date().toISOString().slice(0, 10);
 const PRECACHE_ASSETS = [
   "/",
   "/index.html",

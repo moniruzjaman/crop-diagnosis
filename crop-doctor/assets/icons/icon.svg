@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#006b30" />
+      <stop offset="100%" stop-color="#004d20" />
+    </linearGradient>
+
+    <!-- Red ring accent -->
+    <linearGradient id="redRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e52d27" />
+      <stop offset="100%" stop-color="#b31217" />
+    </linearGradient>
+
+    <!-- Glass lens reflection -->
+    <linearGradient id="lensReflect" x1="20%" y1="20%" x2="80%" y2="80%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45" />
+      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Leaf diseased gradient -->
+    <linearGradient id="leafGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a3c428" />
+      <stop offset="50%" stop-color="#e2c832" />
+      <stop offset="100%" stop-color="#b8860b" />
+    </linearGradient>
+
+    <!-- Healthy leaf gradient -->
+    <linearGradient id="healthyLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#48c774" />
+      <stop offset="100%" stop-color="#1b8a43" />
+    </linearGradient>
+
+    <!-- Drop shadow -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- Squircle Base -->
+  <rect x="16" y="16" width="480" height="480" rx="110" ry="110" fill="url(#bgGrad)" />
+
+  <!-- Left Surrounding Leaves -->
+  <g filter="url(#shadow)">
+    <path d="M 140 290 C 80 260, 70 190, 110 140 C 135 180, 155 240, 140 290 Z" fill="url(#healthyLeaf)" />
+    <path d="M 120 340 C 65 330, 60 260, 100 220 C 120 250, 135 300, 120 340 Z" fill="url(#healthyLeaf)" opacity="0.9" />
+  </g>
+
+  <!-- Right Surrounding Leaves -->
+  <g filter="url(#shadow)">
+    <path d="M 372 290 C 432 260, 442 190, 402 140 C 377 180, 357 240, 372 290 Z" fill="url(#healthyLeaf)" />
+    <path d="M 392 340 C 447 330, 452 260, 412 220 C 392 250, 377 300, 392 340 Z" fill="url(#healthyLeaf)" opacity="0.9" />
+  </g>
+
+  <!-- Magnifying Glass Handle -->
+  <g filter="url(#shadow)">
+    <rect x="316" y="316" width="46" height="110" rx="23" transform="rotate(-45 339 371)" fill="#1c572e" stroke="#0f361c" stroke-width="6" />
+    <rect x="328" y="336" width="22" height="70" rx="11" transform="rotate(-45 339 371)" fill="#34a35a" opacity="0.6" />
+  </g>
+
+  <!-- Outer Dark Green Ring -->
+  <circle cx="236" cy="226" r="148" fill="#0c381a" filter="url(#shadow)" stroke="#1a5c30" stroke-width="8" />
+
+  <!-- Inner Red Ring Accent -->
+  <circle cx="236" cy="226" r="132" fill="url(#redRing)" />
+
+  <!-- Lens Background -->
+  <circle cx="236" cy="226" r="118" fill="#134724" />
+
+  <!-- Diseased Leaf under inspection -->
+  <g>
+    <!-- Leaf body -->
+    <path d="M 236 122 C 296 150, 310 230, 236 310 C 162 230, 176 150, 236 122 Z" fill="url(#leafGrad)" />
+    
+    <!-- Central Leaf Vein -->
+    <path d="M 236 126 Q 236 220 236 306" stroke="#5c4d0b" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.75" />
+    
+    <!-- Side Veins -->
+    <path d="M 236 170 Q 262 186 276 182" stroke="#5c4d0b" stroke-width="2.5" fill="none" opacity="0.6" />
+    <path d="M 236 170 Q 210 186 196 182" stroke="#5c4d0b" stroke-width="2.5" fill="none" opacity="0.6" />
+    <path d="M 236 214 Q 266 230 282 224" stroke="#5c4d0b" stroke-width="2.5" fill="none" opacity="0.6" />
+    <path d="M 236 214 Q 206 230 190 224" stroke="#5c4d0b" stroke-width="2.5" fill="none" opacity="0.6" />
+    <path d="M 236 256 Q 260 270 270 262" stroke="#5c4d0b" stroke-width="2.5" fill="none" opacity="0.6" />
+    <path d="M 236 256 Q 212 270 202 262" stroke="#5c4d0b" stroke-width="2.5" fill="none" opacity="0.6" />
+
+    <!-- Diagnostic Spots (foci) -->
+    <circle cx="218" cy="180" r="7" fill="#4a270a" opacity="0.85" />
+    <circle cx="222" cy="226" r="10" fill="#3a1c05" opacity="0.9" />
+    <circle cx="216" cy="254" r="6" fill="#4a270a" opacity="0.85" />
+    <circle cx="254" cy="196" r="8" fill="#422008" opacity="0.85" />
+    <circle cx="260" cy="242" r="9" fill="#361703" opacity="0.9" />
+    <circle cx="242" cy="276" r="5" fill="#4a270a" opacity="0.85" />
+  </g>
+
+  <!-- Glass Highlight Reflection -->
+  <path d="M 148 180 A 118 118 0 0 1 292 118 Q 236 190 148 180 Z" fill="url(#lensReflect)" />
+</svg>
