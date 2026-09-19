@@ -210,10 +210,12 @@
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('/sw.js')
           .then(function(reg) {
-            reg.update();
-            setInterval(function() { reg.update(); }, 60000);
+            if (reg && reg.update) {
+              reg.update().catch(function() {});
+              setInterval(function() { reg.update().catch(function() {}); }, 60000);
+            }
           })
-          .catch(function(err) { console.error('SW registration failed:', err); });
+          .catch(function(err) { console.warn('Crop Doctor SW registration bypassed:', err); });
       });
     }
   </script>

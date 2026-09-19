@@ -594,15 +594,15 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
       {/* 5. SHARE BANNER & SOCIAL ENGAGEMENT */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-2xl bg-gradient-to-r from-emerald-800 via-teal-800 to-emerald-900 text-white p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-md border border-emerald-700">
+        <div className="rounded-2xl bg-gradient-to-r from-[#00503a] via-[#006a4e] to-[#00503a] text-white p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-md border border-[#006a4e]">
           <div className="space-y-2 text-center md:text-left">
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-200 bg-emerald-700/60 px-2.5 py-0.5 rounded-full inline-block">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-300 bg-black/25 px-2.5 py-0.5 rounded-full inline-block border border-amber-400/30">
               {language === 'bn' ? 'কৃষক ভাই ও কর্মকর্তাদের জন্য' : 'For Farmers, Officers & Dealers'}
             </span>
             <h3 className="text-xl sm:text-2xl font-black text-white">
               {language === 'bn' 
-                ? 'এগ্রিকেম প্রো শেয়ার করে নিরাপদ ও বিষমুক্ত কৃষিতে অবদান রাখুন' 
-                : 'Share AgriChem Pro & Promote Safe Chemical Stewardship'}
+                ? 'বালাইনাশক নির্দেশিকা (Pesticide Guide) শেয়ার করে নিরাপদ ও বিষমুক্ত কৃষিতে অবদান রাখুন' 
+                : 'Share Pesticide Guide & Promote Safe Chemical Stewardship'}
             </h3>
             <p className="text-xs text-emerald-100 max-w-xl">
               {language === 'bn'

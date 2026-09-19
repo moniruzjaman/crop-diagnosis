@@ -49,56 +49,56 @@ export const ShareModal: React.FC<ShareModalProps> = ({
     icon: React.ComponentType<{ className?: string }>;
   }> = {
     home: {
-      titleEn: 'AgriChem Pro — Smart Crop Chemical & Pest Management Suite',
-      titleBn: 'এগ্রিকেম প্রো — আধুনিক বালাইনাশক ও বালাই ব্যবস্থাপনা প্ল্যাটফর্ম',
+      titleEn: 'Pesticide Guide — Smart Crop Chemical & Pest Management Suite',
+      titleBn: 'বালাইনাশক নির্দেশিকা (Pesticide Guide) — আধুনিক বালাই ব্যবস্থাপনা প্ল্যাটফর্ম',
       descEn: 'DAE-registered 70+ pesticides, knapsack sprayer tank calculator, MoA rotation planner, WHO safety protocols & offline field manual.',
       descBn: 'বাংলাদেশে মাঠ ফসলের জন্য ডিএই নিবন্ধিত ৭০+ বালাইনাশক ডাটাবেস, স্প্রেয়ার ট্যাংক ক্যালকুলেটর, প্রতিরোধ রোধে MoA রোটেশন ও পকেট বুক।',
-      tag: '#AgriChem #BangladeshFarming #CropProtection',
+      tag: '#PesticideGuide #BangladeshFarming #CropProtection',
       icon: Sparkles
     },
     database: {
-      titleEn: 'AgriChem Pro — DAE Chemical & Pesticide Catalog',
-      titleBn: 'এগ্রিকেম প্রো — অনুমোদিত বালাইনাশক ডাটাবেস',
+      titleEn: 'Pesticide Guide — DAE Chemical & Pesticide Catalog',
+      titleBn: 'বালাইনাশক নির্দেশিকা — অনুমোদিত রাসায়নিক ডাটাবেস',
       descEn: 'Search 70+ approved active ingredients, trade names, approved crops, and mode-of-action codes.',
       descBn: 'ফসল, বালাই, ট্রেড নাম ও MoA কোড দিয়ে ডিএই নিবন্ধিত ৭০+ বালাইনাশকের অনুমোদন তালিকা দেখুন।',
       tag: '#PesticideDatabase #DAE #AgriTech',
       icon: Database
     },
     calculator: {
-      titleEn: 'AgriChem Pro — Knapsack Sprayer Dosage & Tank Mix Calculator',
-      titleBn: 'এগ্রিকেম প্রো — মাঠপর্যায়ের মাত্রা ও ট্যাংক মিক্সিং ক্যালকুলেটর',
+      titleEn: 'Pesticide Guide — Knapsack Sprayer Dosage & Tank Mix Calculator',
+      titleBn: 'বালাইনাশক নির্দেশিকা — মাঠপর্যায়ের মাত্রা ও ট্যাংক মিক্সিং ক্যালকুলেটর',
       descEn: 'Accurately calculate active chemical doses, water volume, and 16L knapsack sprayer tanks per Bigha/Decimal.',
       descBn: 'ন্যাপস্যাক স্প্রেয়ারের ট্যাংক সংখ্যা, বিঘা/শতক জমির নির্ভুল বালাইনাশক ও পানির অনুপাত হিসাব করুন।',
       tag: '#DosageCalculator #KnapsackSprayer #SmartAgriculture',
       icon: Calculator
     },
     rotation: {
-      titleEn: 'AgriChem Pro — IRAC / FRAC MoA Resistance Rotation Planner',
-      titleBn: 'এগ্রিকেম প্রো — MoA প্রতিরোধ ঘূর্ণন পরিকল্পনা',
+      titleEn: 'Pesticide Guide — IRAC / FRAC MoA Resistance Rotation Planner',
+      titleBn: 'বালাইনাশক নির্দেশিকা — MoA প্রতিরোধ ঘূর্ণন পরিকল্পনা',
       descEn: 'Build resistance-breaking spray sequences with IRAC, FRAC, and HRAC mode-of-action codes.',
       descBn: 'কীট ও রোগের প্রতিরোধ ক্ষমতা ভাঙতে বৈজ্ঞানিক MoA কোড অনুযায়ী স্প্রে আবর্তন তৈরি করুন।',
       tag: '#MoARotation #IRAC #FRAC #PestResistance',
       icon: RotateCw
     },
     safety: {
-      titleEn: 'AgriChem Pro — WHO Hazard Classes & PPE Checklists',
-      titleBn: 'এগ্রিকেম প্রো — নিরাপত্তা ও পিপিই প্রোটোকল',
+      titleEn: 'Pesticide Guide — WHO Hazard Classes & PPE Checklists',
+      titleBn: 'বালাইনাশক নির্দেশিকা — নিরাপত্তা ও পিপিই প্রোটোকল',
       descEn: 'WHO chemical hazard color bands, pre-spray PPE checklists, and emergency first-aid protocols.',
       descBn: 'ডব্লিউএইচও বিপদ শ্রেণি, স্প্রে-পূর্ব পিপিই সরঞ্জাম চেকলিস্ট ও বিষক্রিয়ার জরুরি প্রাথমিক চিকিৎসা।',
       tag: '#FarmerSafety #PPE #SafePesticides',
       icon: ShieldCheck
     },
     guidebook: {
-      titleEn: 'AgriChem Pro — A5 Field Pocket Guidebook & Mixing Manual',
-      titleBn: 'এগ্রিকেম প্রো — ফিল্ড পকেট বুক গাইড ও ডব্লিউ.এ.এল.ই.এস.',
+      titleEn: 'Pesticide Guide — A5 Field Pocket Guidebook & Mixing Manual',
+      titleBn: 'বালাইনাশক নির্দেশিকা — ফিল্ড পকেট বুক গাইড ও ডব্লিউ.এ.এল.ই.এস.',
       descEn: 'Download printable A5 pocket manual with W.A.L.E.S. mixing order, sprayer calibration, and crop schedules.',
       descBn: 'মুদ্রণযোগ্য A5 পকেট বুক ডাউনলোড করুন: W.A.L.E.S. মিশ্রণের নিয়ম, নোজল ক্যালিব্রেশন ও PHI তালিকা।',
       tag: '#FieldManual #AgriGuidebook #FarmersHandbook',
       icon: BookOpen
     },
     alerts: {
-      titleEn: 'AgriChem Pro — Pest Alerts & Regulatory Notices',
-      titleBn: 'এগ্রিকেম প্রো — নিয়ন্ত্রক ও মৌসুমি সতর্কবার্তা',
+      titleEn: 'Pesticide Guide — Pest Alerts & Regulatory Notices',
+      titleBn: 'বালাইনাশক নির্দেশিকা — নিয়ন্ত্রক ও মৌসুমি সতর্কবার্তা',
       descEn: 'Real-time seasonal pest outbreak notices, restricted-use bans, and harvest interval alerts.',
       descBn: 'মৌসুমি বালাই আক্রমণ সতর্কতা ও সরকারি নিয়ন্ত্রক নোটিশ।',
       tag: '#PestAlerts #AgricultureNotices',
@@ -158,14 +158,14 @@ export const ShareModal: React.FC<ShareModalProps> = ({
         className="w-full max-w-lg rounded-2xl bg-white shadow-2xl border border-slate-200 overflow-hidden my-6"
       >
         {/* Modal Header */}
-        <div className="bg-gradient-to-r from-emerald-800 to-teal-800 p-5 text-white flex items-center justify-between">
+        <div className="bg-gradient-to-r from-[#00503a] to-[#006a4e] p-5 text-white flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-xs flex items-center justify-center text-emerald-200">
+            <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-xs flex items-center justify-center text-amber-300">
               <Share2 className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-bold text-lg text-white">
-                {language === 'bn' ? 'এগ্রিকেম প্রো শেয়ার করুন' : 'Share AgriChem Pro'}
+                {language === 'bn' ? 'বালাইনাশক নির্দেশিকা (Pesticide Guide) শেয়ার করুন' : 'Share Pesticide Guide'}
               </h3>
               <p className="text-xs text-emerald-200">
                 {language === 'bn' 
@@ -230,7 +230,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
               <div className="w-full aspect-[1.91/1] bg-slate-100 relative border-b border-slate-100 overflow-hidden">
                 <img
                   src="/icons/og-bn.svg"
-                  alt="AgriChem Pro OG Preview"
+                  alt="Pesticide Guide OG Preview"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
@@ -378,7 +378,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
                     <div className="w-32 h-32 bg-white p-2 rounded-lg shadow-xs border border-emerald-300 flex items-center justify-center">
                       <img
                         src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(shareUrl)}`}
-                        alt="AgriChem Pro QR Code"
+                        alt="Pesticide Guide QR Code"
                         className="w-full h-full object-contain"
                         loading="lazy"
                       />

@@ -16,7 +16,7 @@ import { NotificationCenter } from './components/NotificationCenter';
 import { DocumentMeta } from './components/DocumentMeta';
 import { useLanguage } from './context/LanguageContext';
 import { 
-  Leaf, 
+  FlaskConical, 
   ShieldCheck, 
   BookOpen, 
   RotateCw, 
@@ -218,12 +218,12 @@ export default function App() {
       <footer className="bg-white border-t border-slate-200 mt-12 py-8 text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold">
-              <Leaf className="w-4 h-4" />
+            <div className="w-8 h-8 rounded-lg bg-[#006a4e] text-amber-300 flex items-center justify-center font-bold">
+              <FlaskConical className="w-4 h-4 text-amber-300" />
             </div>
             <div>
               <p className="font-bold text-slate-900">
-                {language === 'bn' ? 'অ্যাগ্রিকেম প্রো — ফিল্ড কন্ট্রোলস ও ডাটাবেস গাইডবুক' : 'AgriChem Pro — Field Controls & Database Guidebook'}
+                {language === 'bn' ? 'বালাইনাশক নির্দেশিকা (Pesticide Guide) — ফিল্ড কন্ট্রোলস ও ডাটাবেস' : 'Pesticide Guide — Field Controls & Database Guidebook'}
               </p>
               <p className="text-[11px] text-slate-400">
                 {language === 'bn' ? 'কৃষি সম্প্রসারণ অধিদপ্তর (DAE) অনুমোদিত অফিসিয়াল রেফারেন্স ডাটাবেস' : 'Department of Agricultural Extension (DAE) Official Reference Data'}

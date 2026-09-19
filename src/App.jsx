@@ -378,6 +378,12 @@ const OTHER_APPS = [
     icon: "♻️",
     desc: "Climate and circular agriculture tools",
   },
+  {
+    name: "Pesticide Guide",
+    url: "https://agrichem-guide.vercel.app/",
+    icon: "🧪",
+    desc: "অনুমোদিত বালাইনাশক নির্দেশিকা, ডোজ ও স্প্রে গাইড (DAE Catalog)",
+  },
 ];
 const LIBRARY_MEDIA = {
   videoCategories: [
@@ -3928,28 +3934,33 @@ function AppsHub() {
         </div>
       </div>
 
-      {/* Quick Info Cards */}
+      {/* Quick Info Cards with Bangladesh Theme (Green, Red, Yellow, White) */}
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))",
+          gridTemplateColumns: "repeat(auto-fit,minmax(130px,1fr))",
           gap: 10,
           marginBottom: 16,
         }}
       >
-        <div style={{ background: C.bgSuccess, borderRadius: 14, padding: 14, textAlign: "center" }}>
+        <div style={{ background: C.bgSuccess, border: `1px solid ${C.borderSuccess}`, borderRadius: 14, padding: 14, textAlign: "center" }}>
           <div style={{ fontSize: 24, marginBottom: 6 }}>🔬</div>
-          <div style={{ fontWeight: 700, fontSize: 12, color: C.primaryDark }}>CABI প্রোটোকল</div>
-          <div style={{ fontSize: 10, color: C.textMuted, marginTop: 4 }}>৫-ধাপ নির্ণয়</div>
+          <div style={{ fontWeight: 800, fontSize: 12, color: C.primary }}>CABI প্রোটোকল</div>
+          <div style={{ fontSize: 10, color: C.textMuted, marginTop: 4 }}>৫-ধাপ রোগ নির্ণয়</div>
         </div>
-        <div style={{ background: C.bgInfo, borderRadius: 14, padding: 14, textAlign: "center" }}>
+        <div style={{ background: C.bgWarning, border: `1px solid ${C.borderWarning}`, borderRadius: 14, padding: 14, textAlign: "center" }}>
           <div style={{ fontSize: 24, marginBottom: 6 }}>🎮</div>
-          <div style={{ fontWeight: 700, fontSize: 12, color: "#1d4ed8" }}>গেম হাব</div>
-          <div style={{ fontSize: 10, color: C.textMuted, marginTop: 4 }}>৫টি শেখার গেম</div>
+          <div style={{ fontWeight: 800, fontSize: 12, color: "#b45309" }}>গেম হাব</div>
+          <div style={{ fontSize: 10, color: C.textMuted, marginTop: 4 }}>৫টি ইন্টারেক্টিভ গেম</div>
         </div>
-        <div style={{ background: C.bgPurple, borderRadius: 14, padding: 14, textAlign: "center" }}>
+        <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 14, padding: 14, textAlign: "center" }}>
+          <div style={{ fontSize: 24, marginBottom: 6 }}>🧪</div>
+          <div style={{ fontWeight: 800, fontSize: 12, color: C.danger }}>বালাইনাশক গাইড</div>
+          <div style={{ fontSize: 10, color: C.textMuted, marginTop: 4 }}>Pesticide ক্যাটালগ</div>
+        </div>
+        <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 14, padding: 14, textAlign: "center" }}>
           <div style={{ fontSize: 24, marginBottom: 6 }}>📚</div>
-          <div style={{ fontWeight: 700, fontSize: 12, color: "#7c3aed" }}>তথ্য ভান্ডার</div>
+          <div style={{ fontWeight: 800, fontSize: 12, color: C.primaryDark }}>তথ্য ভান্ডার</div>
           <div style={{ fontSize: 10, color: C.textMuted, marginTop: 4 }}>ভিডিও, পিডিএফ, অডিও</div>
         </div>
       </div>
@@ -5857,15 +5868,15 @@ function MoAPesticideRegistryView({ C }) {
           })
         )}
 
-        {/* ── AgriChem Pro database results (shared chemical database) ── */}
+        {/* ── Pesticide database results (shared chemical database) ── */}
         {q && (
           <div style={{ marginTop: 14, borderTop: `1px dashed ${C.border}`, paddingTop: 12 }}>
-            <div style={{ fontWeight: 800, fontSize: 13, color: "#047857", marginBottom: 2 }}>
-              🌿 এগ্রিকেম প্রো ডাটাবেস — মিল পাওয়া ফলাফল ({agrichemResults.length})
+            <div style={{ fontWeight: 800, fontSize: 13, color: C.primary, marginBottom: 2, display: "flex", alignItems: "center", gap: 6 }}>
+              <span>🧪</span> বালাইনাশক (Pesticide) ডাটাবেস — মিল পাওয়া ফলাফল ({agrichemResults.length})
             </div>
             {agrichemResults.length === 0 ? (
               <div style={{ fontSize: 11, color: C.textMuted, padding: "8px 0" }}>
-                এগ্রিকেম ডাটাবেসে এই অনুসন্ধানের জন্য কিছু পাওয়া যায়নি।
+                বালাইনাশক ডাটাবেসে এই অনুসন্ধানের জন্য কিছু পাওয়া যায়নি।
               </div>
             ) : (
               <div style={{ display: "grid", gap: 8, maxHeight: 300, overflowY: "auto", paddingRight: 4 }}>
@@ -6769,7 +6780,7 @@ function GameHub() {
 function MarketPriceTicker({ C }) {
   const [prices, setPrices] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [tickerOffset, setTickerOffset] = useState(0);
+  const [_tickerOffset, setTickerOffset] = useState(0);
 
   useEffect(() => {
     async function fetchPrices() {
@@ -10701,17 +10712,17 @@ ${offlineResult.ipmRecommendations.prevention.map((item, idx) => `${idx + 1}. ${
                   </button>
                 );
               })}
-              {/* External AgriChem Pro link — opens in new tab */}
+              {/* External Pesticide Guide link — opens in new tab */}
               <a
                 href="https://agrichem-guide.vercel.app/"
                 target="_blank"
                 rel="noreferrer"
                 className="bottom-nav-item"
-                aria-label="এগ্রিকেম প্রো — নতুন ট্যাবে খুলুন"
+                aria-label="বালাইনাশক নির্দেশিকা (Pesticide Guide) — নতুন ট্যাবে খুলুন"
                 style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textDecoration: "none", color: "inherit" }}
               >
-                <span className="nav-icon" style={{ fontSize: 20 }}>🌿</span>
-                <span>এগ্রিকেম</span>
+                <span className="nav-icon" style={{ fontSize: 20 }}>🧪</span>
+                <span>Pesticide</span>
               </a>
             </nav>
           )}

@@ -69,14 +69,20 @@
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
     <script>
-      // Register service worker — force update on every page load
+      // Register service worker with safe error handling (iframe and sandboxed compatible)
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', async () => {
-          const registration = await navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' });
-          // Check for SW updates every time the page loads
-          registration.update();
-          // Also check every 60 seconds while app is open
-          setInterval(() => registration.update(), 60000);
+          try {
+            const registration = await navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' });
+            if (registration) {
+              try { await registration.update(); } catch (_) {}
+              setInterval(() => {
+                try { registration.update(); } catch (_) {}
+              }, 60000);
+            }
+          } catch (err) {
+            console.warn('Service worker registration bypassed:', err?.message || err);
+          }
         });
       }
     </script>

@@ -727,18 +727,29 @@ async function tryGemini(messages, withVision = true, systemPrompt = SYSTEM_PROM
     generationConfig: { maxOutputTokens: 3000, temperature: 0.3 },
   };
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`;
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "x-goog-api-key": apiKey, "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
+  const candidateModels = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"];
+  let lastErr = null;
+  for (const model of candidateModels) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "x-goog-api-key": apiKey, "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
 
-  const data = await res.json();
-  if (!res.ok) throw new Error(data?.error?.message || `Gemini HTTP ${res.status}`);
-
-  const text = data?.candidates?.[0]?.content?.parts?.map((p) => p.text || "").join("\n") || "No response.";
-  return { text, provider: withVision ? "Google Gemini 2.5 Flash 👁️" : "Google Gemini 2.5 Flash (text)" };
+      const data = await res.json();
+      if (res.ok && data?.candidates?.[0]?.content?.parts) {
+        const text = data.candidates[0].content.parts.map((p) => p.text || "").join("\n") || "No response.";
+        return { text, provider: withVision ? `Google ${model} 👁️` : `Google ${model} (text)` };
+      }
+      lastErr = new Error(data?.error?.message || `Gemini ${model} HTTP ${res.status}`);
+      // If resource exhausted / overloaded, try next model immediately
+    } catch (e) {
+      lastErr = e;
+    }
+  }
+  throw lastErr || new Error("Gemini request failed across models");
 }
 
 // ─── Provider 2: Groq Llama 4 Scout ──────────────────────────────────────────

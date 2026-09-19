@@ -18,71 +18,71 @@ const TAB_META: Record<AppTab, {
 }> = {
   home: {
     en: {
-      title: 'AgriChem Pro — Smart Crop Chemical & Pest Management Suite',
+      title: 'Pesticide Guide — Smart Crop Chemical & Pest Management Suite',
       description: 'All-in-one agricultural platform: 70+ DAE pesticides, Knapsack sprayer tank calculator, MoA resistance rotation planner, WHO safety protocols, and offline pocket guidebook.'
     },
     bn: {
-      title: 'এগ্রিকেম প্রো — আধুনিক বালাই ব্যবস্থাপনা ও সঠিক রাসায়নিক মাত্রা সহায়িকা',
+      title: 'বালাইনাশক নির্দেশিকা (Pesticide Guide) — আধুনিক বালাই ব্যবস্থাপনা ও রাসায়নিক সহায়িকা',
       description: 'বাংলাদেশের মাঠ ফসলের জন্য ডিএই নিবন্ধিত ৭০+ বালাইনাশক ডাটাবেস, ন্যাপস্যাক স্প্রেয়ার ট্যাংক ক্যালকুলেটর, প্রতিরোধ রোধে MoA রোটেশন ও বিনামূল্যে পকেট বুক ম্যানুয়াল।'
     }
   },
   database: {
     en: {
-      title: 'AgriChem Pro — Crop Chemical Database',
+      title: 'Pesticide Guide — Crop Chemical Database',
       description: 'Find DAE-registered pesticides, MoA codes, formulations, PHI and target pests with registered dosage rates.'
     },
     bn: {
-      title: 'এগ্রিকেম প্রো — রাসায়নিক ডাটাবেস',
+      title: 'বালাইনাশক নির্দেশিকা — রাসায়নিক ডাটাবেস',
       description: 'ফসল, বালাই, ট্রেড নাম ও MoA কোড দিয়ে ডিএই নিবন্ধিত বালাইনাশক খুঁজুন। পকেট বুক গাইড ডাউনলোড করুন।'
     }
   },
   calculator: {
     en: {
-      title: 'AgriChem Pro — Dosage & Tank Mix Calculator',
+      title: 'Pesticide Guide — Dosage & Tank Mix Calculator',
       description: 'Knapsack sprayer tank calibration, dosage rates, water volume, and field area conversions.'
     },
     bn: {
-      title: 'এগ্রিকেম প্রো — মাত্রা ক্যালকুলেটর',
+      title: 'বালাইনাশক নির্দেশিকা — মাত্রা ক্যালকুলেটর',
       description: 'ন্যাপস্যাক স্প্রেয়ার ট্যাংক মিশ্রণ, পানির পরিমাণ ও জমির আয়তন হিসাব করুন।'
     }
   },
   rotation: {
     en: {
-      title: 'AgriChem Pro — MoA Rotation Planner',
+      title: 'Pesticide Guide — MoA Rotation Planner',
       description: 'Build IRAC, FRAC, and HRAC spray sequences that break resistance.'
     },
     bn: {
-      title: 'এগ্রিকেম প্রো — MoA ঘূর্ণন পরিকল্পনা',
+      title: 'বালাইনাশক নির্দেশিকা — MoA ঘূর্ণন পরিকল্পনা',
       description: 'প্রতিরোধ ভাঙতে IRAC, FRAC ও HRAC স্প্রে ক্রম তৈরি করুন।'
     }
   },
   safety: {
     en: {
-      title: 'AgriChem Pro — Safety & PPE',
+      title: 'Pesticide Guide — Safety & PPE',
       description: 'WHO hazard bands, pre-spray PPE checklist, and first-aid protocols.'
     },
     bn: {
-      title: 'এগ্রিকেম প্রো — নিরাপত্তা ও পিপিই',
+      title: 'বালাইনাশক নির্দেশিকা — নিরাপত্তা ও পিপিই',
       description: 'ডব্লিউএইচও বিপদ শ্রেণি, স্প্রে-পূর্ব পিপিই চেকলিস্ট ও প্রাথমিক চিকিৎসা।'
     }
   },
   guidebook: {
     en: {
-      title: 'AgriChem Pro — Pocket Book Guide',
+      title: 'Pesticide Guide — Pocket Book Guide',
       description: 'Download the A5 field pocket book: calibration, W.A.L.E.S., PHI, and crop tables.'
     },
     bn: {
-      title: 'এগ্রিকেম প্রো — পকেট বুক গাইড',
+      title: 'বালাইনাশক নির্দেশিকা — পকেট বুক গাইড',
       description: 'A5 পকেট বুক ডাউনলোড করুন: ক্যালিব্রেশন, W.A.L.E.S., PHI ও ফসলভিত্তিক তালিকা।'
     }
   },
   alerts: {
     en: {
-      title: 'AgriChem Pro — Regulatory Alerts',
+      title: 'Pesticide Guide — Regulatory Alerts',
       description: 'Seasonal pest warnings, restricted-use notices, and harvest-interval reminders.'
     },
     bn: {
-      title: 'এগ্রিকেম প্রো — নিয়ন্ত্রক সতর্কতা',
+      title: 'বালাইনাশক নির্দেশিকা — নিয়ন্ত্রক সতর্কতা',
       description: 'মৌসুমি বালাই সতর্কতা, নিষিদ্ধ তালিকা ও ফসল তোলার বিরতি।'
     }
   }
@@ -122,8 +122,8 @@ export const DocumentMeta: React.FC<{ activeTab: AppTab }> = ({ activeTab }) => 
 
   useEffect(() => {
     const copy = TAB_META[activeTab]?.[language] || TAB_META.database[language];
-    const appName = language === 'bn' ? 'এগ্রিকেম প্রো' : 'AgriChem Pro';
-    const theme = THEME_COLOR[activeTab] || '#059669';
+    const appName = language === 'bn' ? 'বালাইনাশক নির্দেশিকা (Pesticide Guide)' : 'Pesticide Guide';
+    const theme = THEME_COLOR[activeTab] || '#006a4e';
     const iconPng = `/apple-touch-icon.png`;
     const iconSvg = `/favicon.svg`;
     const ogImage = '/icons/og-bn.svg';

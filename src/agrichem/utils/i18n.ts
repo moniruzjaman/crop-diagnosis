@@ -73,7 +73,7 @@ export const RISK_TRANSLATIONS: Record<string, string> = {
 export const UI_TRANSLATIONS: Record<Language, Record<string, string>> = {
   en: {
     // Header & Brand
-    app_title: 'AgriChem Pro',
+    app_title: 'Pesticide Guide',
     app_subtitle: 'Pest & Disease Controls Guide',
     app_banner: 'Knowledge Sharing Field Guide — Not an official DAE directive',
     app_tagline: 'IRAC • FRAC • HRAC Resistance Rotation Protocols',
@@ -194,7 +194,7 @@ export const UI_TRANSLATIONS: Record<Language, Record<string, string>> = {
   },
   bn: {
     // Header & Brand
-    app_title: 'এগ্রিকেম প্রো',
+    app_title: 'বালাইনাশক নির্দেশিকা (Pesticide)',
     app_subtitle: 'বালাই ও রোগ নিয়ন্ত্রণ নির্দেশিকা',
     app_banner: 'জ্ঞান ভাগাভাগির ফিল্ড গাইড — DAE-এর অফিসিয়াল আদেশ নয়',
     app_tagline: 'আইআরএসি (IRAC) • এফআরএসি (FRAC) • এইচআরএসি (HRAC) প্রতিরোধ ব্যবস্থাপনা',

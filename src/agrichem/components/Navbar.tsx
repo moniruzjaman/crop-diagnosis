@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Home,
-  Leaf, 
+  FlaskConical, 
   Database, 
   Calculator, 
   RotateCw, 
@@ -43,19 +43,27 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-xs">
+      {/* Bangladesh Official National Colors Top Stripe */}
+      <div 
+        className="h-1 w-full"
+        style={{
+          background: "linear-gradient(90deg, #006a4e 0%, #006a4e 74%, #f42a41 74%, #f42a41 88%, #006a4e 88%)"
+        }}
+      />
+
       {/* Top Banner */}
-      <div className="bg-emerald-900 text-emerald-100 text-xs px-4 py-1.5 flex flex-wrap justify-between items-center gap-2">
+      <div className="bg-[#00503a] text-emerald-100 text-xs px-4 py-1.5 flex flex-wrap justify-between items-center gap-2">
         <div className="flex items-center gap-2">
-          <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span className="font-medium text-white">{t('app_banner')}</span>
-          <span className="hidden sm:inline text-emerald-300">|</span>
-          <span className="hidden sm:inline text-emerald-300">{t('app_tagline')}</span>
+          <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#f42a41] border border-white/50 animate-pulse"></span>
+          <span className="font-semibold text-white">{t('app_banner')}</span>
+          <span className="hidden sm:inline text-amber-300">|</span>
+          <span className="hidden sm:inline text-amber-200">{t('app_tagline')}</span>
         </div>
         <div className="flex items-center gap-3 text-emerald-200">
-          <span className="font-semibold text-white bg-emerald-800/80 px-2 py-0.5 rounded text-[11px]">
+          <span className="font-bold text-white bg-[#006a4e] border border-emerald-400/30 px-2.5 py-0.5 rounded text-[11px]">
             {formatNum(totalProductsCount)} {t('registered_count_suffix')}
           </span>
-          <span className="hidden md:inline">{t('offline_ready')}</span>
+          <span className="hidden md:inline font-medium text-emerald-100">{t('offline_ready')}</span>
         </div>
       </div>
 
@@ -68,17 +76,17 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center gap-3 cursor-pointer select-none shrink-0" 
             onClick={() => setActiveTab('home')}
           >
-            <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shadow-sm">
-              <Leaf className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl bg-[#006a4e] text-amber-300 flex items-center justify-center shadow-md border border-[#00503a]">
+              <FlaskConical className="w-5 h-5 text-amber-300" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-bold text-base sm:text-lg text-slate-900 tracking-tight leading-none">{t('app_title')}</span>
-                <span className="hidden sm:inline-block text-xs font-semibold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">
-                  {language === 'bn' ? 'প্রো' : 'Pro'}
+                <span className="font-black text-base sm:text-lg text-slate-900 tracking-tight leading-none">{t('app_title')}</span>
+                <span className="hidden sm:inline-block text-xs font-bold px-1.5 py-0.5 rounded bg-[#f42a41] text-white">
+                  {language === 'bn' ? 'ক্যাটালগ' : 'Guide'}
                 </span>
               </div>
-              <p className="hidden sm:block text-[11px] text-slate-500 font-medium">{t('app_subtitle')}</p>
+              <p className="hidden sm:block text-[11px] text-[#006a4e] font-semibold">{t('app_subtitle')}</p>
             </div>
           </div>
 
@@ -92,7 +100,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={t('search_placeholder')}
-                className="w-full pl-9 pr-4 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition"
+                className="w-full pl-9 pr-4 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#006a4e]/20 focus:border-[#006a4e] transition"
               />
               {searchQuery && (
                 <button 
@@ -111,10 +119,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               id="header-share-btn"
               onClick={onOpenShare}
-              className="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 hover:text-emerald-800 font-semibold text-xs transition shadow-2xs cursor-pointer select-none"
-              title={language === 'bn' ? 'সোশ্যাল মিডিয়ায় বা সহকর্মীদের সাথে শেয়ার করুন' : 'Share AgriChem Pro'}
+              className="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 hover:text-[#006a4e] font-semibold text-xs transition shadow-2xs cursor-pointer select-none"
+              title={language === 'bn' ? 'সোশ্যাল মিডিয়ায় বা সহকর্মীদের সাথে শেয়ার করুন' : 'Share Pesticide Guide'}
             >
-              <Share2 className="w-3.5 h-3.5 text-emerald-600" />
+              <Share2 className="w-3.5 h-3.5 text-[#006a4e]" />
               <span className="hidden sm:inline">{t('btn_share')}</span>
             </button>
 
@@ -125,13 +133,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               id="language-toggle-btn"
               onClick={toggleLanguage}
-              className="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-xl border border-emerald-600/30 bg-emerald-50 hover:bg-emerald-100/90 text-emerald-900 font-bold text-xs transition shadow-2xs cursor-pointer select-none"
+              className="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-xl border border-[#006a4e]/30 bg-emerald-50 hover:bg-emerald-100/90 text-[#00503a] font-bold text-xs transition shadow-2xs cursor-pointer select-none"
               title={language === 'en' ? 'বাংলা ভাষায় পরিবর্তন করুন (Switch to Bangla)' : 'Switch interface to English'}
               aria-label="Toggle language between Bangla and English"
             >
-              <Languages className="w-4 h-4 text-emerald-700 shrink-0" />
+              <Languages className="w-4 h-4 text-[#006a4e] shrink-0" />
               <span className="hidden sm:inline font-bold tracking-tight">{language === 'en' ? 'বাংলা' : 'English'}</span>
-              <span className="text-[10px] px-1 py-0.2 rounded bg-emerald-200/80 text-emerald-800 uppercase font-semibold">
+              <span className="text-[10px] px-1 py-0.2 rounded bg-[#006a4e] text-white uppercase font-bold">
                 {language === 'en' ? 'BN' : 'EN'}
               </span>
             </button>
@@ -140,16 +148,16 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               id="header-alerts-btn"
               onClick={onOpenAlerts}
-              className="relative p-2 text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg transition"
+              className="relative p-2 text-slate-600 hover:text-[#006a4e] hover:bg-emerald-50 rounded-lg transition"
               title="Regulatory compliance updates & seasonal alerts"
             >
               {unreadAlertCount > 0 ? (
-                <BellRing className="w-5 h-5 text-amber-600 animate-bounce" />
+                <BellRing className="w-5 h-5 text-[#f42a41] animate-bounce" />
               ) : (
                 <Bell className="w-5 h-5" />
               )}
               {unreadAlertCount > 0 && (
-                <span className="absolute top-1 right-1 w-4 h-4 bg-amber-600 text-white rounded-full text-[10px] font-bold flex items-center justify-center">
+                <span className="absolute top-1 right-1 w-4 h-4 bg-[#f42a41] text-white rounded-full text-[10px] font-bold flex items-center justify-center">
                   {formatNum(unreadAlertCount)}
                 </span>
               )}
@@ -165,7 +173,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setActiveTab('home')}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors cursor-pointer ${
               activeTab === 'home'
-                ? 'bg-emerald-600 text-white shadow-xs font-bold'
+                ? 'bg-[#006a4e] text-white shadow-xs font-bold'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
@@ -178,7 +186,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setActiveTab('database')}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors cursor-pointer ${
               activeTab === 'database'
-                ? 'bg-emerald-600 text-white shadow-xs font-bold'
+                ? 'bg-[#006a4e] text-white shadow-xs font-bold'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
@@ -191,7 +199,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setActiveTab('calculator')}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
               activeTab === 'calculator'
-                ? 'bg-emerald-600 text-white shadow-xs'
+                ? 'bg-[#006a4e] text-white shadow-xs font-bold'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
@@ -204,7 +212,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setActiveTab('rotation')}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
               activeTab === 'rotation'
-                ? 'bg-emerald-600 text-white shadow-xs'
+                ? 'bg-[#006a4e] text-white shadow-xs font-bold'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
@@ -217,7 +225,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setActiveTab('safety')}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
               activeTab === 'safety'
-                ? 'bg-emerald-600 text-white shadow-xs'
+                ? 'bg-[#006a4e] text-white shadow-xs font-bold'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
@@ -230,7 +238,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setActiveTab('guidebook')}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
               activeTab === 'guidebook'
-                ? 'bg-emerald-600 text-white shadow-xs'
+                ? 'bg-[#006a4e] text-white shadow-xs font-bold'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
@@ -243,7 +251,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setActiveTab('alerts')}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
               activeTab === 'alerts'
-                ? 'bg-emerald-600 text-white shadow-xs'
+                ? 'bg-[#006a4e] text-white shadow-xs font-bold'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
@@ -251,7 +259,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span>{t('tab_alerts')}</span>
             {unreadAlertCount > 0 && (
               <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
-                activeTab === 'alerts' ? 'bg-white text-emerald-800' : 'bg-amber-100 text-amber-800'
+                activeTab === 'alerts' ? 'bg-white text-[#f42a41]' : 'bg-[#f42a41] text-white'
               }`}>
                 {formatNum(unreadAlertCount)}
               </span>
