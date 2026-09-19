@@ -17,7 +17,7 @@ import TodayDecisionView from "./components/TodayDecisionView";
 import { HeroStakeholderSection } from "./components/HeroStakeholderSection";
 import OnboardingFlow from "./components/OnboardingFlow";
 import OutbreakList from "./components/OutbreakList";
-import VisualDiagnosisLibrary from "./components/VisualDiagnosisLibrary";
+import UnifiedLearnResourceHub from "./components/UnifiedLearnResourceHub";
 import { computeEnsembleScore } from "./data/agronomicEngine";
 import { lookupMoA } from "./data/moaDatabase";
 import { getRegisteredProducts } from "./data/pesticideRegistry";
@@ -4299,7 +4299,7 @@ function VideoGalleryCard({ video, onPlay }) {
     </div>
   );
 }
-function EnhancedLibrarySection() {
+export function EnhancedLibrarySection() {
   const [section, setSection] = useState("video");
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeVideoCategory, setActiveVideoCategory] = useState("intro");
@@ -4767,7 +4767,7 @@ function _LegacyLibrarySection() {
 /* eslint-enable react-hooks/rules-of-hooks */
 
 // ─── CABI Guide tab ───────────────────────────────────────────────────────────
-function CABIGuideTab() {
+export function CABIGuideTab() {
   const [section, setSection] = useState("protocol");
   const [database, setDatabase] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -6141,7 +6141,7 @@ function ShareAndInstallBar() {
 }
 
 // ─── 🎮 GAME HUB ─────────────────────────────────────────────────────────────
-function GameHub() {
+export function GameHub() {
   const [activeGame, setActiveGame] = useState(null);
   const { speak, stop: _stopGame, speaking, isSupported } = useTTS();
 
@@ -6849,7 +6849,7 @@ export default function UdbhidGoenda() {
   const galleryRef = useRef();
   const cameraRef = useRef();
   const isDesktop = viewportWidth >= 1100;
-  const isGameTab = activeTab === "game";
+  const isGameTab = false;
 
   // Dark mode save preference + sync CSS variables
   useEffect(() => {
@@ -7783,7 +7783,7 @@ ${offlineResult.ipmRecommendations.prevention.map((item, idx) => `${idx + 1}. ${
 
   const navTabs = [
     { id: "calendar", label: "ক্যালেন্ডার", icon: "📅" },
-    { id: "learn", label: "শিখুন", icon: "📖" },
+    { id: "learn", label: "শিখুন ও রিসোর্স", icon: "📖" },
     { id: "diagnose", label: "নির্ণয়", icon: "🔬" },
     { id: "library", label: "ভান্ডার", icon: "📚" },
   ];
@@ -8003,8 +8003,8 @@ ${offlineResult.ipmRecommendations.prevention.map((item, idx) => `${idx + 1}. ${
             role="tabpanel"
             style={{
               flex: 1,
-              padding: activeTab === "game" ? "10px 12px" : "14px",
-              overflowY: activeTab === "game" ? "hidden" : "auto",
+              padding: "14px",
+              overflowY: "auto",
               overflowX: "hidden",
             }}
           >
@@ -8113,159 +8113,13 @@ ${offlineResult.ipmRecommendations.prevention.map((item, idx) => `${idx + 1}. ${
                 </div>
               )}
 
-              {/* ── LEARN sub-view (Guide + Games) ────────────────────── */}
+              {/* ── LEARN & RESOURCE HUB (Unified 4 Pillars) ────────────────── */}
               {activeTab === "learn" && (
-                <div style={{ display: "flex", flexDirection: "column", gap: 14, animation: "fadeIn .3s ease" }}>
-                  <div
-                    style={{
-                      background: C.bgCard,
-                      borderRadius: 18,
-                      padding: 20,
-                      boxShadow: C.shadow,
-                      border: `1px solid ${C.border}`,
-                      textAlign: "center",
-                    }}
-                  >
-                    <div style={{ fontSize: 40, marginBottom: 8 }}>📖</div>
-                    <h2
-                      className="ud-headline"
-                      style={{ fontWeight: 800, fontSize: 22, color: C.text, marginBottom: 6 }}
-                    >
-                      শিখুন ও অনুশীলন করুন
-                    </h2>
-                    <p
-                      style={{
-                        fontSize: 13,
-                        color: C.textMuted,
-                        lineHeight: 1.6,
-                        marginBottom: 16,
-                        maxWidth: 400,
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                      }}
-                    >
-                      CABI প্রোটোকল ধাপে ধাপে পড়ুন, তারপর গেম খেলে দক্ষ হন।
-                    </p>
-                  </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: 12 }}>
-                    <button
-                      onClick={() => setActiveTab("guide")}
-                      style={{
-                        background: C.bgCard,
-                        border: `1px solid ${C.border}`,
-                        borderRadius: 18,
-                        padding: "24px 18px",
-                        textAlign: "left",
-                        cursor: "pointer",
-                        boxShadow: C.shadow,
-                        animation: "popIn .4s ease both",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 12,
-                        width: "100%",
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: 56,
-                          height: 56,
-                          borderRadius: 16,
-                          background: C.bgInfo,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: 28,
-                          border: "1.5px solid #2563eb18",
-                        }}
-                      >
-                        📖
-                      </div>
-                      <div>
-                        <div
-                          className="ud-headline"
-                          style={{ fontWeight: 800, fontSize: 18, color: C.text, marginBottom: 4 }}
-                        >
-                          CABI গাইড
-                        </div>
-                        <div style={{ fontSize: 12.5, color: C.textMuted, lineHeight: 1.6 }}>
-                          CABI Plantwise ৫-ধাপ রোগ নির্ণয় প্রোটোকল ধাপে ধাপে পড়ুন ও বুঝুন। ETL সীমা, পুষ্টি তথ্য ও IPM
-                          পিরামিড সহ।
-                        </div>
-                      </div>
-                      <div
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: 4,
-                          fontSize: 12,
-                          fontWeight: 700,
-                          color: "#2563eb",
-                          marginTop: 4,
-                        }}
-                      >
-                        গাইড পড়ুন <span style={{ fontSize: 14 }}>→</span>
-                      </div>
-                    </button>
-                    <button
-                      onClick={() => setActiveTab("game")}
-                      style={{
-                        background: C.bgCard,
-                        border: `1px solid ${C.border}`,
-                        borderRadius: 18,
-                        padding: "24px 18px",
-                        textAlign: "left",
-                        cursor: "pointer",
-                        boxShadow: C.shadow,
-                        animation: "popIn .4s ease .1s both",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 12,
-                        width: "100%",
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: 56,
-                          height: 56,
-                          borderRadius: 16,
-                          background: C.bgPurple,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: 28,
-                          border: "1.5px solid #7c3aed18",
-                        }}
-                      >
-                        🎮
-                      </div>
-                      <div>
-                        <div
-                          className="ud-headline"
-                          style={{ fontWeight: 800, fontSize: 18, color: C.text, marginBottom: 4 }}
-                        >
-                          গেম হাব
-                        </div>
-                        <div style={{ fontSize: 12.5, color: C.textMuted, lineHeight: 1.6 }}>
-                          ৫টি ইন্টারেক্টিভ গেম খেলে CABI নির্ণয় প্রক্রিয়া চর্চা করুন! লক্ষণ চেনা থেকে IPM সিদ্ধান্ত —
-                          সব গেমে।
-                        </div>
-                      </div>
-                      <div
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: 4,
-                          fontSize: 12,
-                          fontWeight: 700,
-                          color: "#7c3aed",
-                          marginTop: 4,
-                        }}
-                      >
-                        গেম খেলুন <span style={{ fontSize: 14 }}>→</span>
-                      </div>
-                    </button>
-                  </div>
-                </div>
+                <UnifiedLearnResourceHub
+                  initialPillar="learning"
+                  setActiveTab={setActiveTab}
+                  C={C}
+                />
               )}
 
               {/* Copilot is now a floating FAB — see CopilotFAB component below */}
@@ -10245,145 +10099,29 @@ ${offlineResult.ipmRecommendations.prevention.map((item, idx) => `${idx + 1}. ${
 
               {/* ── GUIDE ────────────────────────────────────────────────── */}
               {activeTab === "guide" && (
-                <div
-                  className="ud-editorial-shadow"
-                  style={{
-                    background: C.bgCard,
-                    borderRadius: 18,
-                    padding: 18,
-                    border: `1px solid ${C.border}`,
-                    boxShadow: C.shadowMd,
-                  }}
-                >
-                  <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
-                    <div style={{ width: 42, height: 42, borderRadius: 11, overflow: "hidden", flexShrink: 0 }}>
-                      <img
-                        src="/cabi-logo.png"
-                        alt="CABI"
-                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                      />
-                    </div>
-                    <div>
-                      <div style={{ fontWeight: 800, fontSize: 15, color: C.primaryDark }}>CABI Plantwise গাইড</div>
-                      <div style={{ color: C.textMuted, fontSize: 11 }}>সম্পূর্ণ রোগ নির্ণয় প্রোটোকল</div>
-                    </div>
-                  </div>
-                  <CABIGuideTab />
-                  <button
-                    onClick={() => setActiveTab("learn")}
-                    style={{
-                      marginTop: 12,
-                      width: "100%",
-                      padding: "10px",
-                      borderRadius: 12,
-                      border: `1px solid ${C.border}`,
-                      background: C.bgMuted,
-                      color: C.textMuted,
-                      cursor: "pointer",
-                      fontSize: 12,
-                      fontWeight: 600,
-                    }}
-                  >
-                    ← শিখুন পেজে ফিরুন
-                  </button>
-                </div>
+                <UnifiedLearnResourceHub
+                  initialPillar="learning"
+                  setActiveTab={setActiveTab}
+                  C={C}
+                />
               )}
 
-              {/* ── LIBRARY ──────────────────────────────────────────────── */}
+              {/* ── LIBRARY (Media, Audio-Visuals & Reference) ────────────── */}
               {activeTab === "library" && (
-                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                  <div
-                    className="ud-editorial-shadow"
-                    style={{
-                      background: C.bgCard,
-                      borderRadius: 18,
-                      padding: 18,
-                      border: `1px solid ${C.border}`,
-                      boxShadow: C.shadowMd,
-                    }}
-                  >
-                    <div style={{ fontWeight: 800, fontSize: 15, color: C.primaryDark, marginBottom: 3 }}>
-                      📚 তথ্যভান্ডার
-                    </div>
-                    <div style={{ color: C.textMuted, fontSize: 12, marginBottom: 14 }}>
-                      পোকামাকড়, রোগ ও পুষ্টি অভাব
-                    </div>
-                    <EnhancedLibrarySection />
-                  </div>
-                  {/* CABI Visual Reference Library — 278 offline images */}
-                  <div
-                    className="ud-editorial-shadow"
-                    style={{
-                      background: C.bgCard,
-                      borderRadius: 18,
-                      padding: 4,
-                      border: `1px solid ${C.border}`,
-                      boxShadow: C.shadowMd,
-                      overflow: "hidden",
-                    }}
-                  >
-                    <VisualDiagnosisLibrary />
-                  </div>
-                  {/* Quick links to Apps & History sub-views */}
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(160px,1fr))", gap: 10 }}>
-                    <button
-                      onClick={() => setActiveTab("apps")}
-                      style={{
-                        background: C.bgCard,
-                        border: `1px solid ${C.border}`,
-                        borderRadius: 14,
-                        padding: "14px 12px",
-                        textAlign: "left",
-                        cursor: "pointer",
-                        boxShadow: C.shadow,
-                      }}
-                    >
-                      <div style={{ fontSize: 22, marginBottom: 4 }}>🌐</div>
-                      <div style={{ fontWeight: 700, fontSize: 13, color: C.text }}>কৃষি অ্যাপস</div>
-                      <div style={{ fontSize: 11, color: C.textMuted }}>আরও সেবা দেখুন</div>
-                    </button>
-                    <button
-                      onClick={() => setActiveTab("history")}
-                      style={{
-                        background: C.bgCard,
-                        border: `1px solid ${C.border}`,
-                        borderRadius: 14,
-                        padding: "14px 12px",
-                        textAlign: "left",
-                        cursor: "pointer",
-                        boxShadow: C.shadow,
-                      }}
-                    >
-                      <div style={{ fontSize: 22, marginBottom: 4 }}>📋</div>
-                      <div style={{ fontWeight: 700, fontSize: 13, color: C.text }}>নির্ণয় ইতিহাস</div>
-                      <div style={{ fontSize: 11, color: C.textMuted }}>আগের রিপোর্ট</div>
-                    </button>
-                  </div>
-                </div>
+                <UnifiedLearnResourceHub
+                  initialPillar="audiovisuals"
+                  setActiveTab={setActiveTab}
+                  C={C}
+                />
               )}
 
-              {/* ── GAME HUB ─────────────────────────────────────────────── */}
+              {/* ── GAME HUB (Playing to Practice) ───────────────────────── */}
               {activeTab === "game" && (
-                <div>
-                  <GameHub />
-                  <button
-                    onClick={() => setActiveTab("learn")}
-                    style={{
-                      marginTop: 12,
-                      width: "100%",
-                      padding: "10px",
-                      borderRadius: 12,
-                      border: `1px solid ${C.border}`,
-                      background: C.bgMuted,
-                      color: C.textMuted,
-                      cursor: "pointer",
-                      fontSize: 12,
-                      fontWeight: 600,
-                    }}
-                  >
-                    ← শিখুন পেজে ফিরুন
-                  </button>
-                </div>
+                <UnifiedLearnResourceHub
+                  initialPillar="practice"
+                  setActiveTab={setActiveTab}
+                  C={C}
+                />
               )}
 
               {/* ── HISTORY ──────────────────────────────────────────────── */}
