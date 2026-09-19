@@ -50,14 +50,20 @@ async function startServer() {
   app.all('/api/analytics', analyticsHandler);
   app.all('/api/dam-scraper', damScraperHandler);
 
-  // Explicit Service Worker endpoint with guaranteed JS MIME type
-  app.get(['/sw.js', '/service-worker.js'], (req, res) => {
+  // Explicit Service Worker endpoints with guaranteed JS MIME type
+  const serveServiceWorker = (req, res) => {
     const swPath = path.join(process.cwd(), 'public', 'sw.js');
     res.setHeader('Content-Type', 'application/javascript; charset=UTF-8');
     res.setHeader('Service-Worker-Allowed', '/');
     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-    res.sendFile(swPath);
-  });
+    res.sendFile(swPath, (err) => {
+      if (err && !res.headersSent) {
+        res.status(200).send('// Service worker placeholder\nself.addEventListener("fetch", () => {});');
+      }
+    });
+  };
+  app.get('/sw.js', serveServiceWorker);
+  app.get('/service-worker.js', serveServiceWorker);
 
   // Serve static assets from public/ folder if needed (favicons, sw.js, manifest.json)
   app.use(express.static(path.join(process.cwd(), 'public'), {

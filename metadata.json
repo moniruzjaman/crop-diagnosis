@@ -1,6 +1,6 @@
 {
   "name": "CABI Smart Crop Diagnosis",
-  "description": "Smart crop diagnosis (উদ্ভিদ গোয়েন্দা) based on CABI 5-step process. Features interactive games, AI and offline detection of plant diseases, and weather alerts for farmers in Bangladesh.",
+  "description": "Smart crop diagnosis (উদ্ভিদ গোয়েন্দা) based on CABI 5-step process. Empowers farmers, agricultural extension service providers (SAAO), and input sellers with AI detection, dosage calculation, and MoA resistance management.",
   "requestFramePermissions": [
     "camera",
     "geolocation"

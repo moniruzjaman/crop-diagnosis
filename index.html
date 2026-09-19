@@ -31,7 +31,7 @@
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="description" content="উদ্ভিদ গোয়েন্দা (Plant Detective) — Learn to identify crop problems using the CABI 5-step diagnostic process. Interactive games, AI diagnosis, and Bengali TTS accessibility for Bangladesh farmers." />
+    <meta name="description" content="উদ্ভিদ গোয়েন্দা (Plant Detective) — Smart crop diagnosis based on CABI 5-step process. Empowers farmers, agricultural extension service providers (SAAO), and input sellers with AI detection, dosage calculation, and MoA resistance management." />
     <meta name="keywords" content="CABI, Plantwise, Bangladesh, crop diagnosis, pest, disease, agriculture, উদ্ভিদ গোয়েন্দা, DAE, BRRI, BARI" />
 
     <!-- Prevent ALL browser caching for this shell HTML -->
@@ -69,16 +69,34 @@
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
     <script>
-      // Register service worker with safe error handling (iframe and sandboxed compatible)
+      // Register service worker with safe iframe and environment detection
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', async () => {
+          // If loaded inside an iframe (e.g., AI Studio preview container),
+          // unregister any existing service workers to prevent cross-frame caching and update errors
+          if (window.self !== window.top) {
+            try {
+              const registrations = await navigator.serviceWorker.getRegistrations();
+              for (const reg of registrations) {
+                await reg.unregister();
+              }
+            } catch (_) {}
+            return;
+          }
+
           try {
             const registration = await navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' });
             if (registration) {
-              try { await registration.update(); } catch (_) {}
-              setInterval(() => {
-                try { registration.update(); } catch (_) {}
-              }, 60000);
+              registration.addEventListener('updatefound', () => {
+                const installingWorker = registration.installing;
+                if (installingWorker) {
+                  installingWorker.addEventListener('statechange', () => {
+                    if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                      console.info('Plant Detective: Update ready');
+                    }
+                  });
+                }
+              });
             }
           } catch (err) {
             console.warn('Service worker registration bypassed:', err?.message || err);

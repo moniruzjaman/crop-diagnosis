@@ -14,6 +14,7 @@ import {
 import CropCalendarDashboard from "./components/CropCalendarDashboard";
 import WeatherDecisionSummary from "./components/WeatherDecisionSummary";
 import TodayDecisionView from "./components/TodayDecisionView";
+import { HeroStakeholderSection } from "./components/HeroStakeholderSection";
 import OnboardingFlow from "./components/OnboardingFlow";
 import OutbreakList from "./components/OutbreakList";
 import VisualDiagnosisLibrary from "./components/VisualDiagnosisLibrary";
@@ -3344,153 +3345,12 @@ function EnhancedHomeTab({ setActiveTab, history, weather, locationName, coords 
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14, animation: "fadeIn .3s ease", paddingBottom: 8 }}>
-      {/* ── Hero Banner ──────────────────────────────────────────── */}
-      <div
-        style={{
-          background: C.heroGradient,
-          borderRadius: 24,
-          padding: "26px 22px",
-          color: "#fff",
-          position: "relative",
-          overflow: "hidden",
-          boxShadow: "0 8px 32px rgba(0,106,78,0.28)",
-        }}
-      >
-        <span className="hero-leaf" style={{ right: -10, top: -15, fontSize: 110 }}>
-          🍃
-        </span>
-        <span className="hero-leaf" style={{ left: -15, bottom: -20, fontSize: 90, animationDelay: "2s" }}>
-          🌿
-        </span>
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 7,
-              padding: "6px 14px",
-              borderRadius: 999,
-              background: "rgba(244,42,65,0.22)",
-              border: "1px solid rgba(244,42,65,0.5)",
-              fontSize: 11.5,
-              fontWeight: 700,
-              marginBottom: 14,
-            }}
-          >
-            <span
-              style={{
-                width: 8,
-                height: 8,
-                borderRadius: "50%",
-                background: "#f42a41",
-                display: "inline-block",
-                boxShadow: "0 0 6px rgba(244,42,65,0.9)",
-              }}
-            />
-            🌾 বাংলাদেশ কৃষি ও CABI Plantwise
-          </div>
-          <h1
-            className="ud-headline"
-            style={{ fontWeight: 800, fontSize: 26, lineHeight: 1.2, marginBottom: 8, letterSpacing: -0.5 }}
-          >
-            আপনার ফসলের সমস্যা
-            <br />
-            চিনে নিন সহজে
-          </h1>
-          <p style={{ fontSize: 13.5, lineHeight: 1.7, opacity: 0.92, marginBottom: 18, maxWidth: 420 }}>
-            CABI ৫-ধাপ প্রোটোকল অনুসারে ধাপে ধাপে শিখুন ফসলের রোগ ও পোকা চেনার পদ্ধতি। গাইড পড়ুন, গেম খেলুন, তারপর
-            নিজেই নির্ণয় করুন।
-          </p>
-          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            <button
-              onClick={() => setActiveTab("diagnose")}
-              className="ud-headline"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                background: "#ffffff",
-                color: C.primaryDark,
-                border: "2px solid #f42a41",
-                borderRadius: 14,
-                padding: "13px 20px",
-                fontWeight: 800,
-                cursor: "pointer",
-                boxShadow: "0 4px 16px rgba(0,106,78,0.20)",
-                fontSize: 14,
-              }}
-            >
-              <span style={{ fontSize: 18 }}>🔍</span> রোগ নির্ণয় শুরু করুন
-              <span
-                style={{
-                  background: "#f42a41",
-                  color: "#fff",
-                  fontSize: 10,
-                  padding: "2px 7px",
-                  borderRadius: 999,
-                  fontWeight: 800,
-                  letterSpacing: 0.5,
-                }}
-              >
-                AI
-              </span>
-            </button>
-            <button
-              onClick={() => setActiveTab("learn")}
-              className="ud-headline"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                background: "rgba(255,255,255,0.12)",
-                color: "#fff",
-                border: "1.5px solid rgba(255,255,255,0.3)",
-                borderRadius: 14,
-                padding: "13px 18px",
-                fontWeight: 700,
-                cursor: "pointer",
-                fontSize: 13,
-                backdropFilter: "blur(6px)",
-              }}
-            >
-              📖 গাইড পড়ুন
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Read aloud button ────────────────────────────────────── */}
-      {isSupported && (
-        <button
-          onClick={() => {
-            speaking
-              ? stop()
-              : speak(
-                  "উদ্ভিদ গোয়েন্দায় স্বাগতম! এখানে আপনি ধাপে ধাপে শিখবেন কিভাবে ফসলের সমস্যা চেনেন। প্রথমে CABI গাইড পড়ুন, তারপর গেম খেলে চর্চা করুন, আর শেষে নিজে নির্ণয় করুন।",
-                  { prependFriendly: true },
-                );
-          }}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 6,
-            width: "100%",
-            padding: "10px 14px",
-            borderRadius: 14,
-            border: `1.5px solid ${speaking ? C.success : C.border}`,
-            background: C.bgCard,
-            color: speaking ? C.success : C.textMuted,
-            fontSize: 13,
-            fontWeight: 600,
-            cursor: "pointer",
-            boxShadow: C.shadow,
-          }}
-        >
-          <span style={{ fontSize: 18 }}>{speaking ? "⏹️" : "🔊"}</span>
-          {speaking ? "বন্ধ করুন" : "হোম পেজ শুনুন"}
-        </button>
-      )}
+      {/* ── Stakeholder Persona Hero Section (Farmers, Extension Providers, Input Sellers) ── */}
+      <HeroStakeholderSection
+        setActiveTab={setActiveTab}
+        C={C}
+        tts={{ speak, stop, speaking, isSupported }}
+      />
 
       {/* ── Local Conditions / Weather Card ──────────────────────── */}
       <div
