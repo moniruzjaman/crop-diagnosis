@@ -3131,10 +3131,10 @@ function _HomeTab({ setActiveTab, history, weather, locationName }) {
     },
     {
       icon: "📚",
-      title: "তথ্যভাণ্ডার",
-      desc: "স্লাইড, পড়ার PDF, আর অডিও পডকাস্ট এক জায়গায়.",
-      action: "তথ্যভাণ্ডার খুলুন",
-      tab: "library",
+      title: "তথ্যভাণ্ডার ও শিক্ষা",
+      desc: "৫-ধাপ প্রোটোকল, ভিডিও, স্লাইড, রিডিং আর অডিও পডকাস্ট.",
+      action: "শিখুন ও জানুন",
+      tab: "learn",
     },
     {
       icon: "🌐",
@@ -3178,7 +3178,7 @@ function _HomeTab({ setActiveTab, history, weather, locationName }) {
               🔬 এখনই নির্ণয়
             </button>
             <button
-              onClick={() => setActiveTab("library")}
+              onClick={() => setActiveTab("learn")}
               style={{
                 background: "rgba(255,255,255,0.14)",
                 color: "#fff",
@@ -3189,7 +3189,7 @@ function _HomeTab({ setActiveTab, history, weather, locationName }) {
                 cursor: "pointer",
               }}
             >
-              📚 শেখার ঘর
+              📚 শেখার ঘর ও ভান্ডার
             </button>
           </div>
         </div>
@@ -3340,7 +3340,7 @@ function EnhancedHomeTab({ setActiveTab, history, weather, locationName, coords 
       bg: C.bgDanger,
       tab: "diagnose",
     },
-    { icon: "📚", title: "তথ্যভান্ডার", desc: "ভিডিও ও পড়ার উপকরণ", color: "#006a4e", bg: C.bgSuccess, tab: "library" },
+    { icon: "📚", title: "শিখুন ও ভান্ডার", desc: "৫-ধাপ গাইড ও ভিডিও", color: "#006a4e", bg: C.bgSuccess, tab: "learn" },
   ];
 
   return (
@@ -3567,7 +3567,7 @@ function EnhancedHomeTab({ setActiveTab, history, weather, locationName, coords 
               desc: "ব্যবস্থাপনা পরিকল্পনা",
               color: "#0891b2",
               bg: C.bgTeal,
-              tab: "library",
+              tab: "learn",
             },
           ].map((item, i) => (
             <button
@@ -7783,9 +7783,8 @@ ${offlineResult.ipmRecommendations.prevention.map((item, idx) => `${idx + 1}. ${
 
   const navTabs = [
     { id: "calendar", label: "ক্যালেন্ডার", icon: "📅" },
-    { id: "learn", label: "শিখুন ও রিসোর্স", icon: "📖" },
+    { id: "learn", label: "শিখুন", icon: "📖" },
     { id: "diagnose", label: "নির্ণয়", icon: "🔬" },
-    { id: "library", label: "ভান্ডার", icon: "📚" },
   ];
   const feedbackContext =
     activeTab === "diagnose"
@@ -8128,7 +8127,7 @@ ${offlineResult.ipmRecommendations.prevention.map((item, idx) => `${idx + 1}. ${
                 <div>
                   <AppsHub />
                   <button
-                    onClick={() => setActiveTab("library")}
+                    onClick={() => setActiveTab("learn")}
                     style={{
                       marginTop: 12,
                       width: "100%",
@@ -8142,7 +8141,7 @@ ${offlineResult.ipmRecommendations.prevention.map((item, idx) => `${idx + 1}. ${
                       fontWeight: 600,
                     }}
                   >
-                    ← তথ্যভান্ডারে ফিরুন
+                    ← শিখুন পেজে ফিরুন
                   </button>
                 </div>
               )}
@@ -10240,7 +10239,7 @@ ${offlineResult.ipmRecommendations.prevention.map((item, idx) => `${idx + 1}. ${
                         🗑️ সব ইতিহাস মুছুন
                       </button>
                       <button
-                        onClick={() => setActiveTab("library")}
+                        onClick={() => setActiveTab("learn")}
                         style={{
                           marginTop: 8,
                           width: "100%",
@@ -10254,7 +10253,7 @@ ${offlineResult.ipmRecommendations.prevention.map((item, idx) => `${idx + 1}. ${
                           fontWeight: 600,
                         }}
                       >
-                        ← তথ্যভান্ডারে ফিরুন
+                        ← শিখুন পেজে ফিরুন
                       </button>
                     </div>
                   )}
@@ -10295,9 +10294,8 @@ ${offlineResult.ipmRecommendations.prevention.map((item, idx) => `${idx + 1}. ${
             <nav className="bottom-nav" aria-label="Main navigation">
               {navTabs.map((t) => {
                 let isActive = activeTab === t.id;
-                if (t.id === "learn") isActive = activeTab === "learn" || activeTab === "guide" || activeTab === "game";
-                if (t.id === "library")
-                  isActive = activeTab === "library" || activeTab === "apps" || activeTab === "history";
+                if (t.id === "learn")
+                  isActive = activeTab === "learn" || activeTab === "guide" || activeTab === "game" || activeTab === "library";
                 return (
                   <button
                     key={t.id}

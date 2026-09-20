@@ -294,6 +294,64 @@ export default function UnifiedLearnResourceHub({
   // Active protocol step inspection in Pillar 1
   const [expandedStep, setExpandedStep] = useState(1);
 
+  // Sub-view inside Pillar 1: "protocol" | "flowchart" | "checklist"
+  const [learningSubView, setLearningSubView] = useState("protocol");
+
+  // Global Search & Filtering
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchFilter, setSearchFilter] = useState("all");
+
+  // Flowchart Decision Tree state
+  const [flowchartPart, setFlowchartPart] = useState("leaf");
+  const [flowchartSymptom, setFlowchartSymptom] = useState("spots");
+  const [flowchartPattern, setFlowchartPattern] = useState("patch");
+  const [flowchartWeather, setFlowchartWeather] = useState("wet_fog");
+
+  // Field Inspection 8-Point Checklist state
+  const [fieldChecks, setFieldChecks] = useState({
+    healthyComparison: false,
+    bothLeafSurfaces: false,
+    stemVascularCut: false,
+    soilFertilityDrainage: false,
+    weatherHistory: false,
+    pestCountETL: false,
+    triangleWeakLink: false,
+    ipmHierarchy: false,
+  });
+  const [copiedToast, setCopiedToast] = useState(false);
+
+  // Visited Pillars exploration tracking
+  const [visitedPillars, setVisitedPillars] = useState(() => {
+    try {
+      const saved = localStorage.getItem("cabi_visited_pillars");
+      return saved ? JSON.parse(saved) : ["learning"];
+    } catch {
+      return ["learning"];
+    }
+  });
+
+  // Track pillar helper
+  const trackPillar = (pillarId) => {
+    if (!pillarId) return;
+    setVisitedPillars((prev) => {
+      if (!prev.includes(pillarId)) {
+        const next = [...prev, pillarId];
+        try {
+          localStorage.setItem("cabi_visited_pillars", JSON.stringify(next));
+        } catch {
+          // ignore
+        }
+        return next;
+      }
+      return prev;
+    });
+  };
+
+  const handleSelectPillar = (pillarId) => {
+    setActivePillar(pillarId);
+    trackPillar(pillarId);
+  };
+
   // TTS helper
   const { speak, stop: stopTts, speaking, isSupported: ttsSupported } = useTTS();
 
@@ -349,6 +407,321 @@ export default function UnifiedLearnResourceHub({
       else setActiveGameId(null);
     } else if (pillarId === "learning") {
       if (typeof subOption === "number") setExpandedStep(subOption);
+    }
+  };
+
+  // Flowchart Diagnostic Deduction
+  const getFlowchartDiagnosis = () => {
+    if (flowchartSymptom === "water_soaked") {
+      return {
+        probableCause: "ব্যাকটেরিয়াজনিত পচন বা ব্লাইট (Bacterial Soft Rot / Blight)",
+        badge: "ব্যাকটেরিয়া",
+        color: "#ea580c",
+        exclusionNote: "কাঁচের মতো পানিভেজা কিনারা ও দুর্গন্ধযুক্ত পচন ব্যাকটেরিয়ার প্রধান লক্ষণ। এটি সাধারণ শুষ্ক ছত্রাক দাগ নয়।",
+        actionSteps: [
+          "আক্রান্ত গাছের অংশ সাবধানে কেটে ফেলে বিনষ্ট করুন",
+          "ইউরিয়া সারের মাত্রা কমিয়ে পটাশিয়াম ও জিপসাম প্রয়োগ করুন",
+          "জমি থেকে দ্রুত পানি নিষ্কাশনের ব্যবস্থা করুন",
+          "প্রয়োজনে কপার অক্সিক্লোরাইড (যেমন: কুপ্রোফিক্স বা চ্যাম্পিয়ন) ২ গ্রাম/লিটার হারে স্প্রে করুন",
+        ],
+        triangleLink: "আর্দ্রতা নিয়ন্ত্রণ ও রোগ প্রতিরোধী জাত নির্বাচন করে অনুকূল পরিবেশ ভাঙুন",
+        ttsText: "সম্ভাব্য কারণ ব্যাকটেরিয়াজনিত রোগ। পানিভেজা লক্ষণ ও দুর্গন্ধ ব্যাকটেরিয়ার বৈশিষ্ট্য। অতিরিক্ত নাইট্রোজেন পরিহার করে পানি নিষ্কাশন করুন এবং কপারযুক্ত ছত্রাকনাশক ব্যবহার করুন।",
+      };
+    }
+    if (flowchartSymptom === "curling_yellow") {
+      if (flowchartPattern === "new_leaves") {
+        return {
+          probableCause: "ভাইরাসজনিত পাতা কুঁকড়ানো বা মোজাইক (Viral Mosaic via Whitefly / Vector)",
+          badge: "ভাইরাস ও ভেক্টর",
+          color: "#7c3aed",
+          exclusionNote: "কচি পাতায় শিরা হলুদ, মোজাইক বা কুঁচকানো ভাইরাসের বৈশিষ্ট্য। ছত্রাকনাশক দিলে কোনো কাজ হবে না, বাহক পোকা দমন জরুরি।",
+          actionSteps: [
+            "আক্রান্ত চারা বা গাছ সাথে সাথে উপড়ে মাটিচাপা দিন",
+            "হলুদ আঠালো ফাঁদ (Yellow Sticky Trap) প্রতি শতকে ২টি করে টানান",
+            "বাহক পোকা (সাদা মাছি/জাবপোকা) দমনে সাবান পানি বা ইমিডাক্লোপ্রিড স্প্রে করুন",
+            "ভাইরাসমুক্ত সুস্থ বীজ ও রোগ প্রতিরোধী জাত ব্যবহার করুন",
+          ],
+          triangleLink: "বাহক পোকা দমন করে সংক্রমণের চক্র ছিন্ন করুন",
+          ttsText: "সম্ভাব্য কারণ ভাইরাসজনিত রোগ। কচি পাতার মোজাইক বা কুঁকড়ানো সাদা মাছি বা জাবপোকা ছড়ায়। আক্রান্ত গাছ ধ্বংস করুন এবং হলুদ আঠালো ফাঁদ ব্যবহার করুন।",
+        };
+      } else {
+        return {
+          probableCause: "পুষ্টি উপাদানের অভাব (Nutrient Deficiency - N, K or Mg)",
+          badge: "পুষ্টি ঘাটতি (অজৈব)",
+          color: "#d97706",
+          exclusionNote: "পুরনো পাতা থেকে হলুদ হওয়া শুরু হলে এবং কোনো স্পষ্ট জীবাণুর দাগ না থাকলে এটি পুষ্টির অভাব।",
+          actionSteps: [
+            "নাইট্রোজেনের অভাবে পুরনো পাতা সম্পূর্ণ হলুদ হয় — পরিমিত ইউরিয়া প্রয়োগ করুন",
+            "পটাশিয়ামের অভাবে পাতার কিনারা পোড়া হয় — এমওপি বা ছাই প্রয়োগ করুন",
+            "ম্যাগনেসিয়ামের অভাবে শিরা সবুজ থেকে মধ্যভাগ হলুদ হয় — ম্যাগনেসিয়াম সালফেট স্প্রে করুন",
+            "মাটির পিএইচ (pH) ও আর্দ্রতা সুষম রাখুন",
+          ],
+          triangleLink: "গাছকে পুষ্টিকর ও রোগ প্রতিরোধক্ষম রাখতে সুষম সার দিন",
+          ttsText: "সম্ভাব্য কারণ পুষ্টি ঘাটতি। এটি কোনো রোগজীবাণু নয়। পুরনো পাতা হলুদ হলে নাইট্রোজেন বা পটাশের অভাব। সুষম সার প্রয়োগ করুন।",
+        };
+      }
+    }
+    if (flowchartSymptom === "holes_chewed") {
+      return {
+        probableCause: "চর্বণকারী বা ছিদ্রকারী ক্ষতিকারক পোকা (Chewing Insect / Borer / Caterpillar)",
+        badge: "পোকার আক্রমণ",
+        color: "#dc2626",
+        exclusionNote: "পাতায় অনিয়মিত কাটা অংশ, কাণ্ডে ছিদ্র ও কাঠের মতো মল পোকার সুস্পষ্ট চিহ্ন। কোনো স্প্রে করার আগে ETL ক্ষয়ক্ষতির মাত্রা গুনুন।",
+        actionSteps: [
+          "হাত দিয়ে ডিমের গাদা ও পোকার কীড়া সংগ্রহ করে ধ্বংস করুন",
+          "মাঠে আলোক ফাঁদ ও ফেরোমোন ফাঁদ স্থাপন করুন",
+          "ট্রাইকোগ্রামা বা ব্রাকন পরজীবী বন্ধু পোকা অবমুক্ত করুন",
+          "ETL অতিক্রম করলে অনুমোদিত বালাইনাশক নির্দেশিকা মেনে স্প্রে করুন",
+        ],
+        triangleLink: "আলোক ফাঁদ ও বন্ধু পোকা বাড়িয়ে পোকার বংশবৃদ্ধি থামান",
+        ttsText: "সম্ভাব্য কারণ ছিদ্রকারী বা চর্বণকারী পোকা। কাণ্ড বা পাতার ছিদ্রে মল দেখলে মাজরা বা লেদা পোকা নিশ্চিত। আলোক ফাঁদ ব্যবহার করুন।",
+      };
+    }
+    // Default: Spots (Fungal)
+    return {
+      probableCause: "ছত্রাকজনিত পাতা বা কাণ্ডের দাগ/ঝলসা (Fungal Leaf Blight / Blast / Spot)",
+      badge: "ছত্রাকজনিত",
+      color: "#2563eb",
+      exclusionNote: "গোলাকার বা চোখের মতো স্পষ্ট সীমানাযুক্ত দাগ এবং কুয়াশাচ্ছন্ন আবহাওয়ায় বিস্তার ছত্রাকের নিশ্চিত লক্ষণ।",
+      actionSteps: [
+        "গাছের নিচের শুকনো ও দাগযুক্ত পাতা ছেঁটে দিন যাতে বাতাস চলাচল বাড়ে",
+        "ভোরে বা স্যাঁতসেঁতে অবস্থায় জমিতে কাজ করা পরিহার করুন",
+        "ছত্রাক প্রতিরোধে ট্রাইকোডার্মা জৈব ছত্রাকনাশক ব্যবহার করুন",
+        "তীব্র হলে ট্রাইসাইক্লাজোল বা ডাইফেনোকোনাজল নির্দেশিত মাত্রায় স্প্রে করুন",
+      ],
+      triangleLink: "বাতাস চলাচল বাড়িয়ে আর্দ্রতা কমিয়ে ছত্রাকের অনুকূল পরিবেশ নষ্ট করুন",
+      ttsText: "সম্ভাব্য কারণ ছত্রাকজনিত দাগ বা ব্লাইট। কুয়াশা ও স্যাঁতসেঁতে আবহাওয়া ছত্রাকের জন্য অনুকূল। গাছের নিচ পরিষ্কার রাখুন এবং অনুমোদিত ছত্রাকনাশক ব্যবহার করুন।",
+    };
+  };
+
+  // Search Results Generator across all learning assets
+  const getSearchResults = () => {
+    if (!searchQuery.trim()) return [];
+    const q = searchQuery.toLowerCase().trim();
+    const results = [];
+
+    // Check 5 Protocol steps
+    CABI_PROTOCOL_STEPS.forEach((step) => {
+      if (
+        step.title.toLowerCase().includes(q) ||
+        step.en.toLowerCase().includes(q) ||
+        step.desc.toLowerCase().includes(q) ||
+        step.inquiry.toLowerCase().includes(q) ||
+        step.points.some((p) => p.toLowerCase().includes(q))
+      ) {
+        if (searchFilter === "all" || searchFilter === "protocol") {
+          results.push({
+            type: "protocol",
+            title: `ধাপ ${step.num}: ${step.title}`,
+            subtitle: step.en,
+            desc: step.desc,
+            icon: step.icon,
+            color: step.color,
+            pillar: "learning",
+            subOption: step.stepNumber,
+          });
+        }
+      }
+    });
+
+    // Check Science & Understanding
+    if (searchFilter === "all" || searchFilter === "science") {
+      if ("রোগ ত্রিভুজ".includes(q) || "triangle".includes(q) || "pathogen".includes(q) || "পরিবেশ".includes(q)) {
+        results.push({
+          type: "science",
+          title: "রোগ ত্রিভুজ তত্ত্ব (Disease Triangle)",
+          subtitle: "পোষক, রোগজীবাণু ও অনুকূল পরিবেশের সমীকরণ",
+          desc: "কীভাবে পরিবেশ বা পোষক নিয়ন্ত্রণের মাধ্যমে রোগের সংক্রমণ ভাঙা যায়।",
+          icon: "🔺",
+          color: "#d97706",
+          pillar: "understanding",
+          subOption: "triangle",
+        });
+      }
+      if ("etl".includes(q) || "ক্ষতি".includes(q) || "পোকা".includes(q) || "মাত্রা".includes(q) || "মাজরা".includes(q)) {
+        results.push({
+          type: "science",
+          title: "অর্থনৈতিক ক্ষতির মাত্রা (ETL Database)",
+          subtitle: "মাজরা, বিপিএইচ ও ফল ছিদ্রকারী পোকার অ্যাকশন লেভেল",
+          desc: "কখন স্প্রে করতে হবে এবং কখন স্প্রে পরিহার করতে হবে তার বৈজ্ঞানিক হিসাব।",
+          icon: "📊",
+          color: "#16a34a",
+          pillar: "understanding",
+          subOption: "etl",
+        });
+      }
+      if ("পুষ্টি".includes(q) || "নাইট্রোজেন".includes(q) || "পটাশিয়াম".includes(q) || "ঘাটতি".includes(q) || "সার".includes(q)) {
+        results.push({
+          type: "science",
+          title: "পুষ্টি অভাব বনাম রোগ (Nutrient vs Disease)",
+          subtitle: "এন, পি, কে, জিংক ও বোরন ঘাটতির লক্ষণ",
+          desc: "কীভাবে রোগজীবাণু ও সারের ঘাটতি আলাদা করবেন তার নির্দেশিকা।",
+          icon: "🧪",
+          color: "#7c3aed",
+          pillar: "understanding",
+          subOption: "nutrients",
+        });
+      }
+      if ("আইপিএম".includes(q) || "ipm".includes(q) || "পিরামিড".includes(q) || "ব্যবস্থাপনা".includes(q)) {
+        results.push({
+          type: "science",
+          title: "সমন্বিত বালাই ব্যবস্থাপনা (IPM Pyramid)",
+          subtitle: "কালচারাল, মেকানিক্যাল, বায়োলজিক্যাল ও রাসায়নিক ধাপ",
+          desc: "পরিবেশবান্ধব ফসল সুরক্ষা পিরামিডের ৪টি স্তর।",
+          icon: "🌿",
+          color: "#0891b2",
+          pillar: "understanding",
+          subOption: "ipm",
+        });
+      }
+      if ("বালাইনাশক".includes(q) || "moa".includes(q) || "frac".includes(q) || "irac".includes(q) || "ঘূর্ণন".includes(q)) {
+        results.push({
+          type: "science",
+          title: "বালাইনাশক প্রতিরোধ ব্যবস্থাপনা (MoA & Rotation)",
+          subtitle: "FRAC ও IRAC কোড পরিবর্তন করে স্প্রে নির্দেশিকা",
+          desc: "বালাইনাশকের কার্যপদ্ধতি ও প্রতিরোধ রোধের বৈজ্ঞানিক নিয়মাবলী।",
+          icon: "🔄",
+          color: "#4f46e5",
+          pillar: "understanding",
+          subOption: "resistance",
+        });
+      }
+      if ("এটলাস".includes(q) || "ছবি".includes(q) || "গ্যালারি".includes(q) || "atlas".includes(q) || "চিত্র".includes(q)) {
+        results.push({
+          type: "science",
+          title: "ভিজ্যুয়াল রোগ এটলাস (Visual Reference Atlas)",
+          subtitle: "২৭৮টি বাস্তব রোগ ও পোকার রেফারেন্স ছবি",
+          desc: "বাংলাদেশের মাঠ পর্যায়ের ফসলের লক্ষণ ভিত্তিক অফলাইন ফটো গ্যালারি।",
+          icon: "🖼️",
+          color: "#9333ea",
+          pillar: "understanding",
+          subOption: "atlas",
+        });
+      }
+    }
+
+    // Check Videos
+    if (searchFilter === "all" || searchFilter === "video") {
+      LIBRARY_MEDIA_DATA.videoCategories.forEach((cat) => {
+        cat.videos.forEach((vid) => {
+          if (
+            vid.title.toLowerCase().includes(q) ||
+            vid.desc.toLowerCase().includes(q) ||
+            cat.title.toLowerCase().includes(q)
+          ) {
+            results.push({
+              type: "video",
+              title: vid.title,
+              subtitle: `ভিডিও টিউটোরিয়াল • ${cat.title}`,
+              desc: vid.desc,
+              icon: vid.emoji || "🎬",
+              color: "#d97706",
+              pillar: "audiovisuals",
+              subOption: cat.id,
+            });
+          }
+        });
+      });
+    }
+
+    // Check Slides & Readings & Audio
+    if (searchFilter === "all" || searchFilter === "media") {
+      LIBRARY_MEDIA_DATA.slides.forEach((sl) => {
+        if (sl.title.toLowerCase().includes(q)) {
+          results.push({
+            type: "media",
+            title: sl.title,
+            subtitle: "স্লাইড ডেক প্রেজেন্টেশন",
+            desc: "CABI Plantwise ফিল্ড স্লাইড প্রেজেন্টেশন ও ট্রেইনিং মেটেরিয়াল",
+            icon: "🖼️",
+            color: "#ea580c",
+            pillar: "audiovisuals",
+            subOption: "slides",
+          });
+        }
+      });
+      LIBRARY_MEDIA_DATA.readings.forEach((rd) => {
+        if (rd.title.toLowerCase().includes(q) || rd.desc.toLowerCase().includes(q)) {
+          results.push({
+            type: "media",
+            title: rd.title,
+            subtitle: "পড়ার ম্যানুয়াল ও টেকনিক্যাল গাইড",
+            desc: rd.desc,
+            icon: "📖",
+            color: "#2563eb",
+            pillar: "audiovisuals",
+            subOption: "read",
+          });
+        }
+      });
+      LIBRARY_MEDIA_DATA.audio.forEach((au) => {
+        if (au.title.toLowerCase().includes(q) || au.desc.toLowerCase().includes(q)) {
+          results.push({
+            type: "media",
+            title: au.title,
+            subtitle: "বাংলা অডিও পডকাস্ট",
+            desc: au.desc,
+            icon: "🎙️",
+            color: "#16a34a",
+            pillar: "audiovisuals",
+            subOption: "audio",
+          });
+        }
+      });
+    }
+
+    // Check Games
+    if (searchFilter === "all" || searchFilter === "game") {
+      CABI_PRACTICE_GAMES.forEach((gm) => {
+        if (
+          gm.title.toLowerCase().includes(q) ||
+          gm.en.toLowerCase().includes(q) ||
+          gm.desc.toLowerCase().includes(q) ||
+          gm.focus.toLowerCase().includes(q)
+        ) {
+          results.push({
+            type: "game",
+            title: `${gm.title} (${gm.en})`,
+            subtitle: `ইন্টারেক্টিভ গেম মিশন • ধাপ ${gm.step}`,
+            desc: gm.desc,
+            icon: gm.icon,
+            color: gm.color,
+            pillar: "practice",
+            subOption: gm.id,
+          });
+        }
+      });
+    }
+
+    return results;
+  };
+
+  // Clipboard copy handler for 8-point field checklist
+  const handleCopyFieldChecklist = () => {
+    const checkedCount = Object.values(fieldChecks).filter(Boolean).length;
+    const reportText = `📋 CABI উদ্ভিদ গোয়েন্দা — মাঠ পরিদর্শন চেকলিস্ট রিপোর্ট
+তারিখ: ${new Date().toLocaleDateString("bn-BD")}
+সম্পন্ন পয়েন্ট: ${checkedCount}/৮ টি ধাপ
+-----------------------------------------
+১. সুস্থ উদ্ভিদের সাথে তুলনা: ${fieldChecks.healthyComparison ? "✓ সম্পন্ন" : "✗ বাকী"}
+২. পাতার উভয় পিঠ ও ডালপালা পরীক্ষা: ${fieldChecks.bothLeafSurfaces ? "✓ সম্পন্ন" : "✗ বাকী"}
+৩. কাণ্ড ও ভাস্কুলার বান্ডিলে দাগ পরীক্ষা: ${fieldChecks.stemVascularCut ? "✓ সম্পন্ন" : "✗ বাকী"}
+৪. মাটির আর্দ্রতা, সার ও নিষ্কাশন অবস্থা: ${fieldChecks.soilFertilityDrainage ? "✓ সম্পন্ন" : "✗ বাকী"}
+৫. আবহাওয়ার প্রভাব ও সাম্প্রতিক পরিবর্তন: ${fieldChecks.weatherHistory ? "✓ সম্পন্ন" : "✗ বাকী"}
+৬. পোকার সংখ্যা গণনা ও ETL মাত্রা: ${fieldChecks.pestCountETL ? "✓ সম্পন্ন" : "✗ বাকী"}
+৭. রোগ ত্রিভুজের দুর্বলতম অংশ চিহ্নিতকরণ: ${fieldChecks.triangleWeakLink ? "✓ সম্পন্ন" : "✗ বাকী"}
+৮. আইপিএম কালচারাল ও জৈব সমাধান অগ্রাধিকার: ${fieldChecks.ipmHierarchy ? "✓ সম্পন্ন" : "✗ বাকী"}
+-----------------------------------------
+উদ্ভিদ গোয়েন্দা · CABI Plantwise · DAE Bangladesh`;
+
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(reportText).then(() => {
+        setCopiedToast(true);
+        setTimeout(() => setCopiedToast(false), 3000);
+      });
+    } else {
+      setCopiedToast(true);
+      setTimeout(() => setCopiedToast(false), 3000);
     }
   };
 
@@ -470,12 +843,234 @@ export default function UnifiedLearnResourceHub({
         })}
       </div>
 
+      {/* ── PROGRESS & EXPLORATION BADGES STRIP ── */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: 8,
+          padding: "8px 14px",
+          background: C.bgCard,
+          border: `1px solid ${C.border}`,
+          borderRadius: 14,
+          fontSize: 11.5,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 6, fontWeight: 700, color: C.text }}>
+          <span>🌟 আপনার শিক্ষা অগ্রগতি:</span>
+          <span style={{ color: C.primary, fontWeight: 800 }}>
+            {visitedPillars.length} / ৪ স্তম্ভ অন্বেষণ
+          </span>
+        </div>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          {[
+            { id: "learning", label: "প্রোটোকল", icon: "📖" },
+            { id: "understanding", label: "বিজ্ঞান", icon: "🧠" },
+            { id: "audiovisuals", label: "ভিডিও-পডকাস্ট", icon: "🎬" },
+            { id: "practice", label: "গেম মিশন", icon: "🎮" },
+          ].map((b) => {
+            const isUnlocked = visitedPillars.includes(b.id);
+            return (
+              <span
+                key={b.id}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 4,
+                  padding: "3px 8px",
+                  borderRadius: 999,
+                  background: isUnlocked ? C.bgSuccess || "rgba(22,163,74,0.12)" : C.bgMuted,
+                  color: isUnlocked ? (C.success || "#15803d") : C.textMuted,
+                  fontWeight: 700,
+                  fontSize: 10.5,
+                  border: `1px solid ${isUnlocked ? "rgba(22,163,74,0.3)" : C.border}`,
+                }}
+              >
+                <span>{b.icon}</span>
+                <span>{b.label}</span>
+                <span>{isUnlocked ? "✓" : "○"}</span>
+              </span>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ── GLOBAL SEARCH & QUICK JUMP FINDER ── */}
+      <div
+        style={{
+          background: C.bgCard,
+          border: `1px solid ${C.border}`,
+          borderRadius: 16,
+          padding: "12px 14px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 10,
+          boxShadow: C.shadow,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <span style={{ fontSize: 16 }}>🔍</span>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="যেকোনো রোগ, পোকা, ভিডিও, পুষ্টি বা গেম খুঁজুন (যেমন: ব্লাস্ট, BPH, নাইট্রোজেন, MoA)..."
+            style={{
+              flex: 1,
+              border: "none",
+              outline: "none",
+              background: "transparent",
+              fontSize: 13,
+              color: C.text,
+              fontFamily: "inherit",
+            }}
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery("")}
+              style={{
+                background: C.bgMuted,
+                border: "none",
+                borderRadius: "50%",
+                width: 22,
+                height: 22,
+                cursor: "pointer",
+                fontSize: 11,
+                color: C.textMuted,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              title="মুছে ফেলুন"
+            >
+              ✕
+            </button>
+          )}
+        </div>
+
+        {/* Filter Pills */}
+        <div style={{ display: "flex", gap: 6, overflowX: "auto", scrollbarWidth: "none", paddingBottom: 2 }}>
+          {[
+            { id: "all", label: "সব বিষয়" },
+            { id: "protocol", label: "📖 ৫-ধাপ প্রোটোকল" },
+            { id: "science", label: "🧠 বিজ্ঞান ও এটলাস" },
+            { id: "video", label: "🎬 ভিডিও গাইড" },
+            { id: "media", label: "🖼️ স্লাইড ও রিডিং" },
+            { id: "game", label: "🎮 গেম মিশন" },
+          ].map((f) => {
+            const isSelected = searchFilter === f.id;
+            return (
+              <button
+                key={f.id}
+                onClick={() => setSearchFilter(f.id)}
+                style={{
+                  padding: "4px 10px",
+                  borderRadius: 999,
+                  border: `1px solid ${isSelected ? C.primary : C.border}`,
+                  background: isSelected ? C.primary : C.bgMuted,
+                  color: isSelected ? "#fff" : C.textMuted,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  whiteSpace: "nowrap",
+                  transition: "all 0.15s ease",
+                }}
+              >
+                {f.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Live Search Results Container */}
+        {searchQuery.trim() && (
+          <div
+            style={{
+              marginTop: 4,
+              borderTop: `1px solid ${C.border}`,
+              paddingTop: 10,
+              display: "flex",
+              flexDirection: "column",
+              gap: 8,
+              maxHeight: 340,
+              overflowY: "auto",
+            }}
+          >
+            {(() => {
+              const matches = getSearchResults();
+              if (matches.length === 0) {
+                return (
+                  <div style={{ fontSize: 12, color: C.textMuted, textAlign: "center", padding: "14px 0" }}>
+                    "{searchQuery}" এর জন্য কোনো ফলাফল মেলেনি। অন্য কি-ওয়ার্ড বা ফিল্টার চেষ্টা করুন।
+                  </div>
+                );
+              }
+              return (
+                <>
+                  <div style={{ fontSize: 11.5, fontWeight: 700, color: C.primaryDark }}>
+                    পাওয়া গেছে ({matches.length} টি ফলাফল):
+                  </div>
+                  {matches.map((res, idx) => (
+                    <div
+                      key={idx}
+                      onClick={() => {
+                        jumpToPillar(res.pillar, res.subOption);
+                        setSearchQuery("");
+                      }}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        padding: "10px 12px",
+                        background: C.bgMuted,
+                        borderRadius: 12,
+                        cursor: "pointer",
+                        gap: 10,
+                        transition: "all 0.15s ease",
+                        border: `1px solid transparent`,
+                      }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <span style={{ fontSize: 20 }}>{res.icon}</span>
+                        <div>
+                          <div style={{ fontWeight: 800, fontSize: 12.5, color: C.text }}>
+                            {res.title}
+                          </div>
+                          <div style={{ fontSize: 11, color: C.textMuted }}>
+                            {res.subtitle}
+                          </div>
+                        </div>
+                      </div>
+                      <span
+                        style={{
+                          padding: "4px 8px",
+                          borderRadius: 6,
+                          background: res.color || C.primary,
+                          color: "#fff",
+                          fontSize: 10.5,
+                          fontWeight: 700,
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        সরাসরি যান →
+                      </span>
+                    </div>
+                  ))}
+                </>
+              );
+            })()}
+          </div>
+        )}
+      </div>
+
       {/* ═══════════════════════════════════════════════════════════════════ */}
       {/* ── PILLAR 1: 📖 শিখুন (LEARNING - 5-STEP PROTOCOL) ─────────────── */}
       {/* ═══════════════════════════════════════════════════════════════════ */}
       {activePillar === "learning" && (
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-          {/* Pillar Intro Box */}
+          {/* Pillar Intro & Mode Switcher */}
           <div
             style={{
               background: C.bgCard,
@@ -484,56 +1079,99 @@ export default function UnifiedLearnResourceHub({
               border: `1px solid ${C.border}`,
               boxShadow: C.shadow,
               display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              flexWrap: "wrap",
-              gap: 10,
+              flexDirection: "column",
+              gap: 12,
             }}
           >
-            <div>
-              <div className="ud-headline" style={{ fontWeight: 800, fontSize: 16, color: C.primaryDark }}>
-                CABI ৫-ধাপ রোগ নির্ণয় প্রোটোকল
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 10 }}>
+              <div>
+                <div className="ud-headline" style={{ fontWeight: 800, fontSize: 16, color: C.primaryDark }}>
+                  CABI ৫-ধাপ রোগ নির্ণয় প্রোটোকল ও সিদ্ধান্ত ইঞ্জিন
+                </div>
+                <div style={{ fontSize: 12, color: C.textMuted }}>
+                  আন্তর্জাতিক মানসম্পন্ন ৫টি সুনির্দিষ্ট ধাপে কৃষকের ফসল রোগ শনাক্ত, মাঠ চেকলিস্ট ও সঠিক প্রেসক্রিপশন
+                </div>
               </div>
-              <div style={{ fontSize: 12, color: C.textMuted }}>
-                আন্তর্জাতিক মানসম্পন্ন ৫টি সুনির্দিষ্ট ধাপে কৃষকের ফসল রোগ শনাক্ত ও সঠিক প্রেসক্রিপশন প্রদান
+              <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                <button
+                  onClick={() => jumpToPillar("audiovisuals", "diagnosis")}
+                  style={{
+                    background: C.bgMuted,
+                    border: `1px solid ${C.border}`,
+                    padding: "6px 12px",
+                    borderRadius: 10,
+                    fontSize: 11.5,
+                    fontWeight: 700,
+                    color: C.text,
+                    cursor: "pointer",
+                  }}
+                >
+                  🎬 নির্ণয় ভিডিও
+                </button>
+                <button
+                  onClick={() => jumpToPillar("practice", "symptom-spotter")}
+                  style={{
+                    background: C.bgSuccess,
+                    border: `1px solid ${C.borderSuccess || C.border}`,
+                    padding: "6px 12px",
+                    borderRadius: 10,
+                    fontSize: 11.5,
+                    fontWeight: 700,
+                    color: C.success,
+                    cursor: "pointer",
+                  }}
+                >
+                  🎮 প্র্যাকটিস গেম
+                </button>
               </div>
             </div>
-            <div style={{ display: "flex", gap: 6 }}>
-              <button
-                onClick={() => jumpToPillar("audiovisuals", "diagnosis")}
-                style={{
-                  background: C.bgMuted,
-                  border: `1px solid ${C.border}`,
-                  padding: "6px 12px",
-                  borderRadius: 10,
-                  fontSize: 11.5,
-                  fontWeight: 700,
-                  color: C.text,
-                  cursor: "pointer",
-                }}
-              >
-                🎬 রোগ নির্ণয়ের ভিডিও
-              </button>
-              <button
-                onClick={() => jumpToPillar("practice", "symptom-spotter")}
-                style={{
-                  background: C.bgSuccess,
-                  border: `1px solid ${C.borderSuccess || C.border}`,
-                  padding: "6px 12px",
-                  borderRadius: 10,
-                  fontSize: 11.5,
-                  fontWeight: 700,
-                  color: C.success,
-                  cursor: "pointer",
-                }}
-              >
-                🎮 প্র্যাকটিস গেম
-              </button>
+
+            {/* Pillar 1 Sub-View Selector */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+                gap: 6,
+                background: C.bgMuted,
+                padding: 4,
+                borderRadius: 12,
+              }}
+            >
+              {[
+                { id: "protocol", label: "📋 ৫-ধাপ প্রোটোকল", desc: "পূর্ণ নির্দেশিকা" },
+                { id: "flowchart", label: "🎯 সিদ্ধান্ত প্রবাহচিত্র", desc: "ইন্টারেক্টিভ গাইড" },
+                { id: "checklist", label: "📝 মাঠ চেকলিস্ট", desc: "৮-দফা পরিদর্শন" },
+              ].map((tab) => {
+                const isSelected = learningSubView === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setLearningSubView(tab.id)}
+                    style={{
+                      padding: "8px 10px",
+                      borderRadius: 10,
+                      border: "none",
+                      background: isSelected ? C.bgCard : "transparent",
+                      color: isSelected ? C.primary : C.textMuted,
+                      cursor: "pointer",
+                      fontWeight: isSelected ? 800 : 600,
+                      fontSize: 12,
+                      boxShadow: isSelected ? C.shadow : "none",
+                      transition: "all 0.15s ease",
+                      textAlign: "center",
+                    }}
+                  >
+                    <div>{tab.label}</div>
+                    <div style={{ fontSize: 10, opacity: 0.75, marginTop: 1 }}>{tab.desc}</div>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          {/* 5 Steps Accordion / Cards */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          {/* SUB-VIEW 1: 5-STEP PROTOCOL ACCORDION */}
+          {learningSubView === "protocol" && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {CABI_PROTOCOL_STEPS.map((s) => {
               const isExpanded = expandedStep === s.stepNumber;
               return (
@@ -723,6 +1361,594 @@ export default function UnifiedLearnResourceHub({
               );
             })}
           </div>
+          )}
+
+          {/* SUB-VIEW 2: INTERACTIVE DECISION FLOWCHART WIZARD */}
+          {learningSubView === "flowchart" && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              {/* Flowchart Controls Card */}
+              <div
+                style={{
+                  background: C.bgCard,
+                  borderRadius: 18,
+                  padding: 16,
+                  border: `1px solid ${C.border}`,
+                  boxShadow: C.shadow,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 14,
+                }}
+              >
+                <div>
+                  <div className="ud-headline" style={{ fontWeight: 800, fontSize: 15, color: C.text }}>
+                    🎯 মাঠ লক্ষণ নির্বাচন করুন (৪-ধাপ সিদ্ধান্ত প্রবাহচিত্র)
+                  </div>
+                  <div style={{ fontSize: 12, color: C.textMuted }}>
+                    গাছের আক্রান্ত অংশ, দৃশ্যমান লক্ষণ, বিস্তৃতির প্যাটার্ন ও আবহাওয়া নির্বাচন করে সঠিক কারণ ও প্রেসক্রিপশন পান
+                  </div>
+                </div>
+
+                {/* 1. Crop Part Selection */}
+                <div>
+                  <div style={{ fontSize: 11.5, fontWeight: 800, color: C.primaryDark, marginBottom: 6 }}>
+                    ১. আক্রান্ত উদ্ভিদ অংশ:
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))", gap: 6 }}>
+                    {[
+                      { id: "leaf", label: "🌿 পাতা", icon: "🍃" },
+                      { id: "stem", label: "🪵 কাণ্ড ও গোড়া", icon: "🪵" },
+                      { id: "fruit", label: "🍅 ফল ও ফুল", icon: "🌸" },
+                      { id: "root", label: "🌱 শিকড় ও মাটি", icon: "🌾" },
+                    ].map((item) => {
+                      const sel = flowchartPart === item.id;
+                      return (
+                        <button
+                          key={item.id}
+                          onClick={() => setFlowchartPart(item.id)}
+                          style={{
+                            padding: "8px 10px",
+                            borderRadius: 10,
+                            border: `1.5px solid ${sel ? C.primary : C.border}`,
+                            background: sel ? `${C.primary}12` : C.bgMuted,
+                            color: sel ? C.primary : C.text,
+                            fontWeight: sel ? 800 : 600,
+                            fontSize: 12,
+                            cursor: "pointer",
+                            textAlign: "center",
+                          }}
+                        >
+                          {item.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* 2. Symptom Appearance */}
+                <div>
+                  <div style={{ fontSize: 11.5, fontWeight: 800, color: C.primaryDark, marginBottom: 6 }}>
+                    ২. দৃশ্যমান লক্ষণের ধরন:
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 6 }}>
+                    {[
+                      { id: "spots", label: "🔴 দাগ ও ঝলসা", desc: "সীমানাযুক্ত গোল বা লম্বাটে" },
+                      { id: "water_soaked", label: "💧 পানিভেজা পচন", desc: "কাঁচের মতো নরম ও দুর্গন্ধ" },
+                      { id: "curling_yellow", label: "🌀 হলুদ শিরা ও কোঁকড়ানো", desc: "মোজাইক বা বিবর্ণ পাতা" },
+                      { id: "holes_chewed", label: "🐛 কাটা অংশ ও ছিদ্র", desc: "পোকার মল ও খাওয়া পাতা" },
+                    ].map((item) => {
+                      const sel = flowchartSymptom === item.id;
+                      return (
+                        <button
+                          key={item.id}
+                          onClick={() => setFlowchartSymptom(item.id)}
+                          style={{
+                            padding: "8px 10px",
+                            borderRadius: 10,
+                            border: `1.5px solid ${sel ? C.primary : C.border}`,
+                            background: sel ? `${C.primary}12` : C.bgMuted,
+                            color: sel ? C.primary : C.text,
+                            fontWeight: sel ? 800 : 600,
+                            fontSize: 11.5,
+                            cursor: "pointer",
+                            textAlign: "left",
+                          }}
+                        >
+                          <div style={{ fontWeight: 800 }}>{item.label}</div>
+                          <div style={{ fontSize: 10, color: C.textMuted }}>{item.desc}</div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* 3. Distribution Pattern */}
+                <div>
+                  <div style={{ fontSize: 11.5, fontWeight: 800, color: C.primaryDark, marginBottom: 6 }}>
+                    ৩. মাঠে বা গাছে বিস্তারের প্যাটার্ন:
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 6 }}>
+                    {[
+                      { id: "patch", label: "📍 নির্দিষ্ট ১-২টি গাছের গুচ্ছ", desc: "মাঠে গোল চাকা বা প্যাচ" },
+                      { id: "uniform", label: "🌾 পুরো মাঠে সমভাবে ছড়ানো", desc: "মাটি বা আবহাওয়াজনিত প্রভাব" },
+                      { id: "older_leaves", label: "🍂 নিচের পুরনো পাতায় আগে", desc: "পুষ্টি চলনশীলতা লক্ষণ" },
+                      { id: "new_leaves", label: "🌱 উপরের কচি ডগায় আগে", desc: "ভাইরাস বা অচল পুষ্টি" },
+                    ].map((item) => {
+                      const sel = flowchartPattern === item.id;
+                      return (
+                        <button
+                          key={item.id}
+                          onClick={() => setFlowchartPattern(item.id)}
+                          style={{
+                            padding: "8px 10px",
+                            borderRadius: 10,
+                            border: `1.5px solid ${sel ? C.primary : C.border}`,
+                            background: sel ? `${C.primary}12` : C.bgMuted,
+                            color: sel ? C.primary : C.text,
+                            fontWeight: sel ? 800 : 600,
+                            fontSize: 11.5,
+                            cursor: "pointer",
+                            textAlign: "left",
+                          }}
+                        >
+                          <div style={{ fontWeight: 800 }}>{item.label}</div>
+                          <div style={{ fontSize: 10, color: C.textMuted }}>{item.desc}</div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* 4. Weather or Input Condition */}
+                <div>
+                  <div style={{ fontSize: 11.5, fontWeight: 800, color: C.primaryDark, marginBottom: 6 }}>
+                    ৪. সাম্প্রতিক আবহাওয়া ও পরিচর্যা:
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 6 }}>
+                    {[
+                      { id: "wet_fog", label: "🌧️ টানা বৃষ্টি ও কুয়াশা", desc: "উচ্চ আর্দ্রতা ও স্যাঁতসেঁতে" },
+                      { id: "dry_heat", label: "☀️ প্রচণ্ড রোদ ও শুষ্ক বাতাস", desc: "উষ্ণ তাপমাত্রা ও খরা" },
+                      { id: "high_nitrogen", label: "⚡ অতিরিক্ত ইউরিয়া সার", desc: "ঘন সবুজ গাছ ও নরম কোষ" },
+                    ].map((item) => {
+                      const sel = flowchartWeather === item.id;
+                      return (
+                        <button
+                          key={item.id}
+                          onClick={() => setFlowchartWeather(item.id)}
+                          style={{
+                            padding: "8px 10px",
+                            borderRadius: 10,
+                            border: `1.5px solid ${sel ? C.primary : C.border}`,
+                            background: sel ? `${C.primary}12` : C.bgMuted,
+                            color: sel ? C.primary : C.text,
+                            fontWeight: sel ? 800 : 600,
+                            fontSize: 11.5,
+                            cursor: "pointer",
+                            textAlign: "left",
+                          }}
+                        >
+                          <div style={{ fontWeight: 800 }}>{item.label}</div>
+                          <div style={{ fontSize: 10, color: C.textMuted }}>{item.desc}</div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              {/* Deduction Result Matrix */}
+              {(() => {
+                const diag = getFlowchartDiagnosis();
+                return (
+                  <div
+                    style={{
+                      background: C.bgCard,
+                      borderRadius: 18,
+                      border: `1.5px solid ${diag.color}`,
+                      padding: 16,
+                      boxShadow: `0 6px 20px ${diag.color}25`,
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 12,
+                    }}
+                  >
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10, flexWrap: "wrap" }}>
+                      <div>
+                        <span
+                          style={{
+                            padding: "3px 8px",
+                            borderRadius: 999,
+                            background: `${diag.color}18`,
+                            color: diag.color,
+                            fontSize: 11,
+                            fontWeight: 800,
+                          }}
+                        >
+                          {diag.badge}
+                        </span>
+                        <div className="ud-headline" style={{ fontWeight: 800, fontSize: 16, color: C.text, marginTop: 4 }}>
+                          {diag.probableCause}
+                        </div>
+                      </div>
+
+                      {ttsSupported && (
+                        <button
+                          onClick={() => {
+                            if (speaking) {
+                              stopTts();
+                            } else {
+                              speak(diag.ttsText, { prependFriendly: true });
+                            }
+                          }}
+                          style={{
+                            background: speaking ? "#f42a41" : C.bgMuted,
+                            border: `1px solid ${C.border}`,
+                            color: speaking ? "#fff" : C.text,
+                            borderRadius: 10,
+                            padding: "6px 12px",
+                            fontSize: 11.5,
+                            fontWeight: 700,
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 4,
+                          }}
+                        >
+                          <span>{speaking ? "⏹️" : "🔊"}</span>
+                          <span>{speaking ? "থামুন" : "পরামর্শ শুনুন"}</span>
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Exclusion Rationale Note */}
+                    <div
+                      style={{
+                        background: `${diag.color}10`,
+                        borderLeft: `4px solid ${diag.color}`,
+                        padding: "10px 12px",
+                        borderRadius: "0 10px 10px 0",
+                        fontSize: 12.5,
+                        color: C.text,
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      <strong>🔍 CABI বর্জন যুক্তি (Elimination Rationale):</strong> {diag.exclusionNote}
+                    </div>
+
+                    {/* Step-by-Step IPM Prescription */}
+                    <div>
+                      <div style={{ fontSize: 12, fontWeight: 800, color: diag.color, marginBottom: 6 }}>
+                        🛡️ সমন্বিত আইপিএম ও নিরাপদ প্রতিকার পরিকল্পনা:
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                        {diag.actionSteps.map((step, idx) => (
+                          <div
+                            key={idx}
+                            style={{
+                              display: "flex",
+                              alignItems: "flex-start",
+                              gap: 8,
+                              background: C.bgMuted,
+                              padding: "8px 10px",
+                              borderRadius: 8,
+                              fontSize: 12,
+                              color: C.text,
+                            }}
+                          >
+                            <span style={{ fontWeight: 800, color: diag.color }}>{idx + 1}.</span>
+                            <span>{step}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Disease Triangle Connection */}
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        background: C.bgMuted,
+                        padding: "10px 12px",
+                        borderRadius: 10,
+                        border: `1px solid ${C.border}`,
+                        fontSize: 12,
+                        flexWrap: "wrap",
+                        gap: 8,
+                      }}
+                    >
+                      <div>
+                        <span style={{ fontWeight: 700, color: C.text }}>🔺 রোগ ত্রিভুজ লিঙ্ক: </span>
+                        <span style={{ color: C.textMuted }}>{diag.triangleLink}</span>
+                      </div>
+                      <div style={{ display: "flex", gap: 6 }}>
+                        <button
+                          onClick={() => jumpToPillar("understanding", "triangle")}
+                          style={{
+                            padding: "4px 8px",
+                            borderRadius: 6,
+                            background: C.bgCard,
+                            border: `1px solid ${C.border}`,
+                            fontSize: 11,
+                            fontWeight: 700,
+                            color: "#7c3aed",
+                            cursor: "pointer",
+                          }}
+                        >
+                          রোগ ত্রিভুজ দেখুন →
+                        </button>
+                        <button
+                          onClick={() => jumpToPillar("practice", "cause-detective")}
+                          style={{
+                            padding: "4px 8px",
+                            borderRadius: 6,
+                            background: "#16a34a",
+                            border: "none",
+                            color: "#fff",
+                            fontSize: 11,
+                            fontWeight: 700,
+                            cursor: "pointer",
+                          }}
+                        >
+                          🎮 কারণ খোঁজার গেম
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+          )}
+
+          {/* SUB-VIEW 3: FIELD INSPECTION 8-POINT CHECKLIST & CHEAT SHEET */}
+          {learningSubView === "checklist" && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              <div
+                style={{
+                  background: C.bgCard,
+                  borderRadius: 18,
+                  padding: 16,
+                  border: `1px solid ${C.border}`,
+                  boxShadow: C.shadow,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 12,
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 10 }}>
+                  <div>
+                    <div className="ud-headline" style={{ fontWeight: 800, fontSize: 16, color: C.text }}>
+                      📝 মাঠ পরীক্ষার ৮-দফা চেকলিস্ট (Field Inspection Checklist)
+                    </div>
+                    <div style={{ fontSize: 12, color: C.textMuted }}>
+                      মাঠে গিয়ে ধাপে ধাপে পয়েন্টগুলো যাচাই করুন। সম্পূর্ণ হলে রিপোর্ট কপি করে সংরক্ষণে রাখুন।
+                    </div>
+                  </div>
+
+                  <div style={{ display: "flex", gap: 8 }}>
+                    <button
+                      onClick={handleCopyFieldChecklist}
+                      style={{
+                        padding: "6px 12px",
+                        borderRadius: 10,
+                        background: C.primary,
+                        color: "#fff",
+                        border: "none",
+                        fontSize: 11.5,
+                        fontWeight: 700,
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 6,
+                        boxShadow: "0 2px 8px rgba(0,106,78,0.3)",
+                      }}
+                    >
+                      <span>📋</span>
+                      <span>{copiedToast ? "কপি সম্পন্ন! ✓" : "চেকলিস্ট কপি করুন"}</span>
+                    </button>
+                    <button
+                      onClick={() =>
+                        setFieldChecks({
+                          healthyComparison: false,
+                          bothLeafSurfaces: false,
+                          stemVascularCut: false,
+                          soilFertilityDrainage: false,
+                          weatherHistory: false,
+                          pestCountETL: false,
+                          triangleWeakLink: false,
+                          ipmHierarchy: false,
+                        })
+                      }
+                      style={{
+                        padding: "6px 10px",
+                        borderRadius: 10,
+                        background: C.bgMuted,
+                        color: C.textMuted,
+                        border: `1px solid ${C.border}`,
+                        fontSize: 11.5,
+                        fontWeight: 600,
+                        cursor: "pointer",
+                      }}
+                    >
+                      রিসেট
+                    </button>
+                  </div>
+                </div>
+
+                {/* Progress Bar */}
+                {(() => {
+                  const done = Object.values(fieldChecks).filter(Boolean).length;
+                  const pct = Math.round((done / 8) * 100);
+                  return (
+                    <div>
+                      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11.5, fontWeight: 700, marginBottom: 4 }}>
+                        <span style={{ color: C.text }}>মাঠ প্রস্তুতি ও পরীক্ষা সম্পন্ন:</span>
+                        <span style={{ color: done === 8 ? C.success : C.primary }}>
+                          {done}/৮ টি সম্পন্ন ({pct}%)
+                        </span>
+                      </div>
+                      <div style={{ width: "100%", height: 8, background: C.bgMuted, borderRadius: 999, overflow: "hidden" }}>
+                        <div
+                          style={{
+                            width: `${pct}%`,
+                            height: "100%",
+                            background: done === 8 ? "#16a34a" : C.primary,
+                            borderRadius: 999,
+                            transition: "width 0.25s ease",
+                          }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })()}
+
+                {/* 8 Checkpoints */}
+                <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 4 }}>
+                  {[
+                    {
+                      key: "healthyComparison",
+                      num: "১",
+                      title: "সুস্থ গাছের সাথে তুলনা",
+                      desc: "আক্রান্ত গাছের পাশের স্বাভাবিক সুস্থ গাছের রঙ, উচ্চতা ও বৃদ্ধি স্পষ্টভাবে তুলনা করেছি।",
+                      icon: "🌱",
+                    },
+                    {
+                      key: "bothLeafSurfaces",
+                      num: "২",
+                      title: "পাতার উভয় পিঠ ও ডালপালা পরীক্ষা",
+                      desc: "পাতার উপরের পিঠ ও নিচের পিঠ ম্যাগনিফাইং গ্লাস দিয়ে ছত্রাকের ছাতা, ডিমের গাদা বা সূক্ষ্ম পোকা দেখেছি।",
+                      icon: "🔍",
+                    },
+                    {
+                      key: "stemVascularCut",
+                      num: "৩",
+                      title: "কাণ্ড ও ভাস্কুলার বান্ডিলে দাগ পরীক্ষা",
+                      desc: "কাণ্ড বা গোড়া আড়াআড়ি কেটে ভেতরে বাদামী শিরা বা দুর্গন্ধযুক্ত আঠালো রস বের হচ্ছে কি না দেখেছি।",
+                      icon: "🪵",
+                    },
+                    {
+                      key: "soilFertilityDrainage",
+                      num: "৪",
+                      title: "মাটির আর্দ্রতা, সার প্রয়োগ ও নিষ্কাশন অবস্থা",
+                      desc: "জমিতে অতিরিক্ত পানি জমে থাকা, খরা অথবা অতিরিক্ত ইউরিয়া সারের প্রভাব মূল্যায়ন করেছি।",
+                      icon: "🌾",
+                    },
+                    {
+                      key: "weatherHistory",
+                      num: "৫",
+                      title: "আবহাওয়ার সাম্প্রতিক ৩-৫ দিনের ইতিহাস",
+                      desc: "টানা কুয়াশা, মেঘলা আকাশ বা তাপমাত্রা আকস্মিক বৃদ্ধির সাথে রোগের যোগসূত্র মিলিয়েছি।",
+                      icon: "⛅",
+                    },
+                    {
+                      key: "pestCountETL",
+                      num: "৬",
+                      title: "পোকার সংখ্যা গণনা ও ETL মাত্রা যাচাই",
+                      desc: "১০টি গুছি বা গাছে ক্ষতিকারক পোকার সংখ্যা গুনে অর্থনৈতিক ক্ষতির সীমা (ETL) অতিক্রম করেছে কি না নিশ্চিত হয়েছি।",
+                      icon: "📊",
+                    },
+                    {
+                      key: "triangleWeakLink",
+                      num: "৭",
+                      title: "রোগ ত্রিভুজের দুর্বলতম অংশ চিহ্নিতকরণ",
+                      desc: "অনুকূল পরিবেশ (যেমন আর্দ্রতা কমিয়ে) বা জাত পরিবর্তনের মাধ্যমে রোগ চক্র ভাঙার পথ ঠিক করেছি।",
+                      icon: "🔺",
+                    },
+                    {
+                      key: "ipmHierarchy",
+                      num: "৮",
+                      title: "আইপিএম কালচারাল ও জৈব সমাধান অগ্রাধিকার",
+                      desc: "স্প্রে করার আগে রোগাক্রান্ত অংশ অপসারণ, ফাঁদ ব্যবহার ও উপকারী বন্ধু পোকার নিরাপত্তা নিশ্চিত করেছি।",
+                      icon: "🌿",
+                    },
+                  ].map((item) => {
+                    const isChecked = fieldChecks[item.key];
+                    return (
+                      <div
+                        key={item.key}
+                        onClick={() =>
+                          setFieldChecks((prev) => ({
+                            ...prev,
+                            [item.key]: !prev[item.key],
+                          }))
+                        }
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: 12,
+                          padding: "10px 12px",
+                          borderRadius: 12,
+                          background: isChecked ? `${C.primary}10` : C.bgMuted,
+                          border: `1px solid ${isChecked ? C.primary : C.border}`,
+                          cursor: "pointer",
+                          transition: "all 0.15s ease",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 22,
+                            height: 22,
+                            borderRadius: 6,
+                            background: isChecked ? C.primary : C.bgCard,
+                            border: `1.5px solid ${isChecked ? C.primary : C.textMuted}`,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            color: "#fff",
+                            fontSize: 13,
+                            fontWeight: 800,
+                            flexShrink: 0,
+                            marginTop: 2,
+                          }}
+                        >
+                          {isChecked ? "✓" : ""}
+                        </div>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                            <span style={{ fontSize: 14 }}>{item.icon}</span>
+                            <span style={{ fontWeight: 800, fontSize: 13, color: isChecked ? C.primaryDark : C.text }}>
+                              {item.num}. {item.title}
+                            </span>
+                          </div>
+                          <div style={{ fontSize: 11.5, color: C.textMuted, marginTop: 2, lineHeight: 1.4 }}>
+                            {item.desc}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Field Cheat Sheet Box */}
+              <div
+                style={{
+                  background: C.bgCard,
+                  borderRadius: 16,
+                  padding: 14,
+                  border: `1px solid ${C.border}`,
+                  fontSize: 12,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 8,
+                }}
+              >
+                <div style={{ fontWeight: 800, color: C.primaryDark, fontSize: 13 }}>
+                  💡 CABI Plantwise ও DAE মাঠ নির্দেশিকা (স্বর্ণনিয়ম):
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 8 }}>
+                  <div style={{ background: C.bgMuted, padding: "8px 10px", borderRadius: 8 }}>
+                    <strong>১. ভুল ডায়াগনসিস পরিহার:</strong> কখনো ১টি লক্ষণ দেখেই বালাইনাশক সুপারিশ করবেন না। পাতা, কাণ্ড ও গোড়া তিনটাই দেখুন।
+                  </div>
+                  <div style={{ background: C.bgMuted, padding: "8px 10px", borderRadius: 8 }}>
+                    <strong>২. বন্ধু পোকা রক্ষা:</strong> মাকড়সা, লেডিবার্ড বিটল ও ড্রাগনফ্লাই মাঠে থাকলে কীটনাশক স্প্রে করা থেকে বিরত থাকুন।
+                  </div>
+                  <div style={{ background: C.bgMuted, padding: "8px 10px", borderRadius: 8 }}>
+                    <strong>৩. মোড অব অ্যাকশন ঘূর্ণন:</strong> একই গ্রুপের কীটনাশক বা ছত্রাকনাশক পরপর দুইবার স্প্রে করবেন না; FRAC/IRAC কোড বদলান।
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
